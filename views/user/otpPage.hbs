@@ -1,0 +1,91 @@
+<body>
+    <!-- Page Preloder -->
+    {{!-- <div id="preloder">
+        <div class="loader"></div>
+    </div> --}}
+
+    <!-- Breadcrumb Section Begin -->
+    <div class="breacrumb-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb-text">
+                        <a href="#"><i class="fa fa-home"></i> Home</a>
+                        <span>otp</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb Form Section Begin -->
+
+    <!-- Register Section Begin -->
+    <div class="register-login-section spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 offset-lg-3">
+                    <div class="login-form">
+                        <div class="logoOtp">
+                            <a href="./index.html">
+                                <img src="/images/img/logo.png" alt="">
+                            </a>
+                        </div>
+                        <form action="/otpSub" method="post" style="margin-top: 3rem;">
+                            <div class="group-input">
+                                <input type="text" id="username" placeholder="Enter OTP" name="otp">
+                            </div>
+                            <div class="group-input gi-check">
+                            </div>
+                            <div class="text-center mt-5">
+                                <span class="d-block mobile-text" id="countdown"></span>
+                                <a href="/resendOtp"><span class="d-block mobile-text" id="resend"></span></a>
+                            </div>
+                            <div>
+                                <p class="text-danger">{{wrong}}</p>
+                            </div>
+                            <button type="submit" class="site-btn login-btn">Proceed</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Register Form Section End -->
+
+    <!-- Partner Logo Section Begin -->
+    <div class="partner-logo">
+        <div class="container">
+            <div class="logo-carousel owl-carousel">
+                <div class="logo-item">
+                    <div class="tablecell-inner">
+                        <img src="img/logo-carousel/logo-1.png" alt="">
+                    </div>
+                </div>
+                <div class="logo-item">
+                    <div class="tablecell-inner">
+                        <img src="img/logo-carousel/logo-2.png" alt="">
+                    </div>
+                </div>
+                <div class="logo-item">
+                    <div class="tablecell-inner">
+                        <img src="img/logo-carousel/logo-3.png" alt="">
+                    </div>
+                </div>
+                <div class="logo-item">
+                    <div class="tablecell-inner">
+                        <img src="img/logo-carousel/logo-4.png" alt="">
+                    </div>
+                </div>
+                <div class="logo-item">
+                    <div class="tablecell-inner">
+                        <img src="img/logo-carousel/logo-5.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Partner Logo Section End -->
+
+
+    <script src="/javascripts/timer.js"></script>
+</body>

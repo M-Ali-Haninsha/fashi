@@ -1,0 +1,453 @@
+<section class="checkout-section spad">
+    <div class="container">
+        <h2> Address section</h2>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            select
+        </button>
+        <!-- Button trigger modal 1 -->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal1">
+            add
+        </button>
+         <!-- Button trigger modal 2 -->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal2">
+            edit
+        </button>
+
+       
+
+
+    <div class="checkout-content col-md-6" style="    margin-top: 1rem; margin-left: 35rem;">
+{{#if cActive}}
+        <form id="cancelCoupon">
+            <div class="input-group">
+                <input type="text" placeholder="{{coupon}}" name="couponCode">
+                <button class="btn btn-danger" type="submit" style="background-color: #dc3545">cancel</button>
+            </div>
+        </form>
+        {{/if}}
+        {{#unless cActive}}
+         <form id="applyCoupon">
+            <div class="input-group">
+                <input type="text" placeholder="Enter Your Coupon Code" name="couponCode">
+                <button type="submit">Apply</button>
+                <span class="text-danger" id="warning"></span>
+            </div>
+        </form>
+        {{/unless}}
+
+
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content" style="width: 32rem">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="checkout-modal2__form" action="/checkout" method="get">
+                        <div class="dash__table-2-wrap u-s-m-b-30 gl-scroll">
+                            <table class="dash__table-2">
+                                <thead>
+                                    <tr>
+                                        <th>Action</th>
+                                        <th>Name </th>
+                                        <th>Address</th>
+
+                                        {{!-- <th>actions</th> --}}
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{#each add}}
+                                    <tr>
+                                        <td>
+                                            <div class="radio-box">
+                                                <input type="radio" id="address-{{@index}}" name="addressIndex"
+                                                    value="{{@index}}" {{#if selected}}checked{{/if}}>
+                                                <div class="radio-box_state radio-box_state--primary">
+                                                    <label class="radio-box__label" for="address-{{@index}}"></label>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>{{firstName}} {{lastName}} </td>
+                                        <td> {{address}}, {{city}}, {{phone}}</td>
+                                        {{!-- <td><a href="/editaddress"><button
+                                                    class="btn btn-primary">edit</button></a></td> --}}
+                                    </tr>
+                                    {{/each}}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="#"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                                    style="height: 3rem;">cancel</button></a>
+                            <button type="submit" class="btn btn-primary" style="height: 3rem;">Save changes</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal1 -->
+    <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add address</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+<form action="/addProfileFromCheckout" method="post" class="checkout-form">
+            <div class="row">
+                <div class="col-lg-12">
+                   
+                    <h4>address</h4>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <label for="fir">First Name<span>*</span></label>
+                            <input type="text" id="fir" name="firstname" value="firstName" >
+                        </div>
+                        <div class="col-lg-6">
+                            <label for="last">Last Name<span>*</span></label>
+                            <input type="text" id="last" name="lastname" value="lastName" >
+                        </div>
+                        <div class="col-lg-12">
+                            <label for="cun-name">Address</label>
+                            <input type="text" id="cun-name" name="address" value="address" >
+                        </div>
+                        <div class="col-lg-12">
+                            <label for="cun">Country<span>*</span></label>
+                            <input type="text" id="cun" name="country" value="country" >
+                        </div>
+                        <div class="col-lg-12">
+                            <label for="street">Postcode<span>*</span></label>
+                            <input type="text" id="street" class="street-first" name="postcode" value="postcode" >
+                           
+                        </div>
+                        <div class="col-lg-12">
+                            <label for="zip">District</label>
+                            <input type="text" id="zip" name="district" value="district" >
+                        </div>
+                        <div class="col-lg-12">
+                            <label for="town">Town / City<span>*</span></label>
+                            <input type="text" id="town" name="city" value="city" >
+                        </div>
+                        <div class="col-lg-6">
+                            <label for="email">Email Address<span>*</span></label>
+                            <input type="text" id="email" name="email" value="emailAddress" >
+                        </div>
+                        <div class="col-lg-6">
+                            <label for="phone">Phone<span>*</span></label>
+                            <input type="text" id="phone" name="phone" value="phone" >
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="order-btn">
+                                <button type="submit" class="site-btn place-btn">add</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+     <!-- Modal2 -->
+    <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content" style="width: 38rem">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Select address to edit</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="checkout-modal2__form2" action="/editaddress" method="post">
+  <div class="dash__table-2-wrap u-s-m-b-30 gl-scroll">
+    <table class="dash__table-2">
+      <thead>
+        <tr>
+          <th>Action</th>
+          <th>Name</th>
+          <th>Address</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each add}}
+        <tr>
+          <td>
+            <button type="submit" class="btn btn-link" name="addressId" value="{{_id}}">
+              <div class="radio-box">
+                <div class="radio-box_state radio-box_state--primary">
+                  <label class="radio-box__label"></label>
+                  <input type="radio" name="addressIndex" value="{{@index}}" {{#if selected}}checked{{/if}}>
+                </div>
+              </div>
+            </button>
+          </td>
+          <td>{{firstName}} {{lastName}}</td>
+          <td>{{address}},{{city}},{{phone}}</td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+  </div>
+</form>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+    <div class="container">
+        <form action="" class="checkout-form" id="checkout-form">
+            <div class="row">
+                <div class="col-lg-6">
+
+                    {{!-- <div class="checkout-content">
+                        <a href="/selectAddress" class="content-btn">select</a>
+                    </div> --}}
+                    <h4>Biiling Details</h4>
+                    <div class="row">
+                      
+                        <div class="col-lg-6">
+                            <label for="fir">First Name<span>*</span></label>
+                            <input type="text" id="fir" value="{{selectAddress.firstName}}" name="firstname" >
+                        </div>
+                        <div class="col-lg-6">
+                            <label for="last">Last Name<span>*</span></label>
+                            <input type="text" id="last" value="{{selectAddress.lastName}}" name="lastname" >
+                        </div>
+                        <div class="col-lg-12">
+                            <label for="cun-name">Address</label>
+                            <input type="text" id="cun-name" value="{{selectAddress.address}}" name="address" >
+                        </div>
+                        <div class="col-lg-12">
+                            <label for="cun">Country<span>*</span></label>
+                            <input type="text" id="cun" value="{{selectAddress.country}}" name="country" >
+                        </div>
+                        <div class="col-lg-12">
+                            <label for="street">Postcode<span>*</span></label>
+                            <input type="text" id="street" class="street-first" value="{{selectAddress.postcode}}" name="pincode" >
+                        </div>
+                        <div class="col-lg-12">
+                            <label for="zip">District</label>
+                            <input type="text" id="zip" value="{{selectAddress.district}}" name="district" >
+                        </div>
+                        <div class="col-lg-12">
+                            <label for="town">Town / City<span>*</span></label>
+                            <input type="text" id="town" value="{{selectAddress.city}}" name="city" >
+                        </div>
+                        <div class="col-lg-6">
+                            <label for="email">Email Address<span>*</span></label>
+                            <input type="text" id="email" value="{{selectAddress.emailAddress}}" name="mail" >
+                        </div>
+                        <div class="col-lg-6">
+                            <label for="phone">Phone<span>*</span></label>
+                            <input type="text" id="phone" value="{{selectAddress.phone}}" name="phone" >
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-lg-6">
+
+
+                    <div class="place-order">
+                        <h4>Your Order</h4>
+
+                        <div class="order-total">
+
+                            <ul class="order-table">
+                                <li>Product <span>Total</span></li>
+                                {{#each productCheckout}}
+                                <li class="fw-normal">{{name}} x {{quantity}} <span>₹{{subPrice}}</span></li>
+                                {{/each}}
+
+                                <li class="fw-normal">Subtotal <span>{{ttl}}</span></li>
+                                {{#if cActive}}
+                                <li class="total-price">coupon <span class="text-danger">-{{couponPrice}}</span></li>
+                                 <li class="total-price">wallet <span class="text-danger">-{{wallet}}</span></li>
+                                <li class="total-price">Total <span>{{total}}</span></li>
+                                
+                                {{else}}
+                                <li class="total-price">wallet <span class="text-danger">-{{wallet}}</span></li>
+
+                                <li class="total-price">Total <span>{{total}}</span></li>
+                                {{/if}}
+                                
+                            </ul>
+
+                            <div class="payment-check">
+                                <div class="pc-item">
+                                    <label for="pc-check">
+                                        COD
+                                        <input type="radio" id="pc-check" name="payment" value="cod">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+                                <div class="pc-item">
+                                    <label for="pc-paypal">
+                                        Paypal
+                                        <input type="radio" id="pc-paypal" name="payment" value="paypal">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="order-btn">
+                                <button type="submit" class="site-btn place-btn">Place Order</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</section>
+
+
+
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<script>
+    $('#checkout-form').submit((e) => {
+        e.preventDefault()
+        $.ajax({
+            url: '/placeOrder',
+            method: 'post',
+            data: $('#checkout-form').serialize(),
+            success: (response) => {
+                if (response.status == true) {
+                    razorpayPayment(response.order)
+
+                } else if (response.status == 'cod') {
+                     swal("order placed!", "success")
+                   .then(()=>{
+                    location.href = '/orderSuccess'
+                   }) 
+                }
+            }
+        })
+
+    })
+
+    function razorpayPayment(order) {
+        var options = {
+            "key": "rzp_test_TDRJfd82mop9MS", // Enter the Key ID generated from the Dashboard
+            "amount": order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+            "currency": "INR",
+            "name": "Fashi", //your business name
+            "description": "Test Transaction",
+            "image": "https://example.com/your_logo",
+            "order_id": order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+
+            "handler": function (response) {
+
+                verifyPayment(response, order)
+            },
+            "prefill": {
+                "name": "Gaurav Kumar", //your customer's name
+                "email": "gaurav.kumar@example.com",
+                "contact": "9000090000"
+            },
+            "notes": {
+                "address": "Razorpay Corporate Office"
+            },
+            "theme": {
+                "color": "#3399cc"
+            }
+        };
+        var rzp1 = new Razorpay(options);
+        rzp1.open();
+    }
+
+    function verifyPayment(payment, order) {
+        $.ajax({
+
+            url: '/verifyPayment',
+            method: 'post',
+            data: {
+                payment,
+                order
+            },
+
+            success: (response) => {
+                if (response.PaymentSuccess == true) {
+                    location.href = "/orderSuccess"
+                } else {
+                    alert('payment failed')
+                }
+            }
+        })
+    }
+
+
+</script>
+<script>
+    $('#applyCoupon').submit((e) => {
+        e.preventDefault()
+        $.ajax({
+            url: '/applyCoupon',
+            method: 'post',
+            data: $('#applyCoupon').serialize(),
+            success: (response) => {
+                if (response.status == true) {
+                    location.reload()
+
+                } else if (response.status == false) {
+                    $('#warning').html(response.msg)
+                }
+            }
+        })
+
+    })
+</script>
+
+<script>
+    $('#cancelCoupon').submit((e) => {
+        e.preventDefault()
+        swal("Are you sure you want to do this?", {
+            buttons: ["cancel", "ok"],
+        })
+        .then((value) => {
+            if (value) { // If "true" button clicked
+                $.ajax({
+                    url: '/cancelCoupon',
+                    method: 'get',
+                    success: (response) => {
+                        if (response.status == true) {
+                            location.reload()
+                        }
+                    }
+                })
+            }
+        })
+    })
+</script>
+
+
+
+

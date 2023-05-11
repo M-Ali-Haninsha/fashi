@@ -1,0 +1,101 @@
+<div class="super_container">
+    <header class="header" style="display: none;">
+        <div class="header_main">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 col-12 order-lg-2 order-3 text-lg-left text-right">
+                        <div class="header_search">
+                            <div class="header_search_content">
+                                <div class="header_search_form_container">
+                                    <form action="#" class="header_search_form clearfix">
+                                        <div class="custom_dropdown">
+                                            <div class="custom_dropdown_list"> <span
+                                                    class="custom_dropdown_placeholder clc">All Categories</span> <i
+                                                    class="fas fa-chevron-down"></i>
+                                                <ul class="custom_list clc">
+                                                    <li><a class="clc" href="#">All Categories</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="single_product">
+        <div class="container-fluid" style=" background-color: #fff; padding: 11px;">
+            <div class="row">
+                <div class="col-lg-2 order-lg-1 order-2">
+                    <ul class="image_list">
+                        <li data-image="https://res.cloudinary.com/dxfq3iotg/image/upload/v1565713229/single_4.jpg"
+                            style="padding: 0;"><img src="/images/productImages/{{singleProductView.image.[0]}}"
+                                style="height: 100%; width: 80%;"></li>
+                        <li data-image="https://res.cloudinary.com/dxfq3iotg/image/upload/v1565713228/single_2.jpg"
+                            style="padding: 0;"><img src="/images/productImages/{{singleProductView.image.[1]}}"
+                                style="height: 100%; width: 80%;"></li>
+                        <li data-image="https://res.cloudinary.com/dxfq3iotg/image/upload/v1565713228/single_3.jpg"
+                            style="padding: 0;"><img src="/images/productImages/{{singleProductView.image.[2]}}"
+                                style="height: 100%; width: 80%;"></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 order-lg-2 order-1">
+                    <div id="image-container" class="image_selected"><img style="width: 100%; height:100%;"
+                            src="/images/productImages/{{singleProductView.image.[1]}}" alt=""></div>
+                </div>
+                <div class="col-lg-6 order-3">
+                    <div class="product_description">
+                        <nav>
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item"><a href="#">Products</a></li>
+                                <li class="breadcrumb-item active">Accessories</li>
+                            </ol>
+                        </nav>
+                        <div class="product_name">{{singleProductView.name}}</div>
+                        <div> <span class="product_price">₹ {{singleProductView.price}}</span> <strike
+                                class="product_discount"> <span style='color:black'><span> </strike> </div>
+                        <hr class="singleline">
+                        <div>
+                            <p>{{singleProductView.description}}</p>
+                        </div>
+                    </div>
+
+                    <hr class="singleline">
+                    <div class="order_info d-flex flex-row">
+                        <form action="#">
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6" style="margin-left: 13px;">
+                        </div>
+                        <div class="col-xs-6"> <button  type="button" class="btn btn-primary shop-button">Add to
+                                Cart</button> </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+<script src="/javascripts/zoom.js"></script>
+
+<script>
+    $(document).ready(function () {
+        // Get all thumbnail images
+        var thumbnailImages = $('.image_list li img');
+
+        // Add click event listener to each thumbnail image
+        thumbnailImages.click(function () {
+            // Get the value of the src attribute of the clicked thumbnail
+            var newImageSrc = $(this).attr('src');
+
+            // Update the src attribute of the main product image to the new image
+            $('#image-container img').attr('src', newImageSrc);
+        });
+    });
+</script>

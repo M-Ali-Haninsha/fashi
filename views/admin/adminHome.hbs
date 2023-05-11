@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body class="dashboard dashboard_1">
+   <div class="full_container">
+      <div class="inner_container">
+         <!-- Sidebar  -->
+
+         <!-- end topbar -->
+         <!-- dashboard inner -->
+         <div class="midde_cont">
+            <div class="container-fluid">
+               <div class="row column_title">
+                  <div class="col-md-12">
+                     <div class="page_title">
+                        <h2>Dashboard</h2>
+                     </div>
+                  </div>
+               </div>
+               <div class="row column1">
+                  <div class="col-md-3 ">
+                     <div class="full counter_section margin_bottom_30">
+                        <div class="couter_icon">
+                           <div>
+                              <i class="fa fa-user yellow_color"></i>
+                           </div>
+                        </div>
+                        <div class="counter_no">
+                           <div>
+                              <p class="total_no">2500</p>
+                              <p class="head_couter">Welcome</p>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-md-3 ">
+                     <div class="full counter_section margin_bottom_30">
+                        <div class="couter_icon">
+                           <div>
+                              <i class="fa fa-clock-o blue1_color"></i>
+                           </div>
+                        </div>
+                        <div class="counter_no">
+                           <div>
+                              <p class="total_no">123.50</p>
+                              <p class="head_couter">Average Time</p>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-md-3 ">
+                     <div class="full counter_section margin_bottom_30">
+                        <div class="couter_icon">
+                           <div>
+                              <i class="fa fa-cloud-download green_color"></i>
+                           </div>
+                        </div>
+                        <div class="counter_no">
+                           <div>
+                              <p class="total_no">1,805</p>
+                              <p class="head_couter">Collections</p>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-md-3 ">
+                     <div class="full counter_section margin_bottom_30">
+                        <div class="couter_icon">
+                           <div>
+                              <i class="fa fa-comments-o red_color"></i>
+                           </div>
+                        </div>
+                        <div class="counter_no">
+                           <div>
+                              <p class="total_no">54</p>
+                              <p class="head_couter">Comments</p>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               {{!-- <div class="row column1 social_media_section">
+                  <div class="col-md-6 col-lg-3">
+                     <div class="full socile_icons fb margin_bottom_30">
+                        <div class="social_icon">
+                           <i class="fa fa-facebook"></i>
+                        </div>
+                        <div class="social_cont">
+                           <ul>
+                              <li>
+                                 <span><strong>35k</strong></span>
+                                 <span>Friends</span>
+                              </li>
+                              <li>
+                                 <span><strong>128</strong></span>
+                                 <span>Feeds</span>
+                              </li>
+                           </ul>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-md-6 col-lg-3">
+                     <div class="full socile_icons tw margin_bottom_30">
+                        <div class="social_icon">
+                           <i class="fa fa-twitter"></i>
+                        </div>
+                        <div class="social_cont">
+                           <ul>
+                              <li>
+                                 <span><strong>584k</strong></span>
+                                 <span>Followers</span>
+                              </li>
+                              <li>
+                                 <span><strong>978</strong></span>
+                                 <span>Tweets</span>
+                              </li>
+                           </ul>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-md-6 col-lg-3">
+                     <div class="full socile_icons linked margin_bottom_30">
+                        <div class="social_icon">
+                           <i class="fa fa-linkedin"></i>
+                        </div>
+                        <div class="social_cont">
+                           <ul>
+                              <li>
+                                 <span><strong>758+</strong></span>
+                                 <span>Contacts</span>
+                              </li>
+                              <li>
+                                 <span><strong>365</strong></span>
+                                 <span>Feeds</span>
+                              </li>
+                           </ul>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-md-6 col-lg-3">
+                     <div class="full socile_icons google_p margin_bottom_30">
+                        <div class="social_icon">
+                           <i class="fa fa-google-plus"></i>
+                        </div>
+                        <div class="social_cont">
+                           <ul>
+                              <li>
+                                 <span><strong>450</strong></span>
+                                 <span>Followers</span>
+                              </li>
+                              <li>
+                                 <span><strong>57</strong></span>
+                                 <span>Circles</span>
+                              </li>
+                           </ul>
+                        </div>
+                     </div>
+                  </div>
+               </div> --}}
+               <!-- graph -->
+               <div class="row column2 graph margin_bottom_30">
+                  <div class="col-md-8 ">
+  <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+                  </div>
+               <div class="col-md-4" style="padding: 0;">
+                  <div id="piechart"></div>
+               </div>
+
+               </div>
+
+               <div class="col-md-12">
+                  <button type="button" class="btn btn-danger btn-sm" style="margin-left: 4px;  margin-bottom: 1rem;" onclick="downloadPDF()">Export to PDF</button>
+
+                  <table id="dtBasicExample" class="table table-striped table-bordered" style="width:100%">
+                     <thead>
+                        <tr>
+                           <th>N0</th>
+                           <th>Name</th>
+                           <th>Date</th>
+                           <th>Order Id</th>
+                           <th>Payment</th>
+                           <th>Amount</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        {{#each orderData}}
+                        <tr>
+                           <td>{{inc @index}}</td>
+                           <td>{{deliveryaddress.firstname}}</td>
+                           <td>{{date}}</td>
+                           <td>{{ordereduser}}</td>
+                           <td>{{paymentmethod}}</td>
+                           <td>{{grandtotal}}</td>
+                        </tr>
+                        {{/each}}
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <!-- footer -->
+            <div class="container-fluid">
+               <div class="footer">
+                  <p>Copyright © 2018 Designed by html.design. All rights reserved.<br><br>
+                     Distributed By: <a href="https://themewagon.com/">ThemeWagon</a>
+                  </p>
+               </div>
+            </div>
+         </div>
+         <!-- end dashboard inner -->
+      </div>
+   </div>
+   </div>
+   <!-- jQuery -->
+   <script src="/javascripts/adminJs/js/jquery.min.js"></script>
+   <script src="/javascripts/adminJs/js/jquery.min.js"></script>
+   {{!-- <script src="/javascripts/adminJs/js/bootstrap.min.js"></script> --}}
+   <!-- wow animation -->
+   <script src="/javascripts/adminJs/js/animate.js"></script>
+   <!-- select country -->
+   <script src="/javascripts/adminJs/js/bootstrap-select.js"></script>
+   <!-- owl carousel -->
+   <script src="/javascripts/adminJs/js/owl.carousel.js"></script>
+   <!-- chart js -->
+   <script src="/javascripts/adminJs/js/Chart.min.js"></script>
+   <script src="/javascripts/adminJs/js/Chart.bundle.min.js"></script>
+   <script src="/javascripts/adminJs/js/utils.js"></script>
+   <script src="/javascripts/adminJs/js/analyser.js"></script>
+   <!-- nice scrollbar -->
+   <script src="/javascripts/adminJs/js/perfect-scrollbar.min.js"></script>
+   <script>
+      var ps = new PerfectScrollbar('#sidebar');
+   </script>
+   <!-- custom js -->
+   <script src="/javascripts/adminJs/js/custom.js"></script>
+   <script src="/javascripts/adminJs/js/chart_custom_style1.js"></script>
+   <script src="//cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+   <script>
+$(document).ready(function () {
+$('#dtBasicExample').DataTable();
+
+});
+   </script>
+
+   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+   <script type="text/javascript">
+// Load google charts
+google.charts.load('current', {'packages':['corechart']});
+google.charts.setOnLoadCallback(drawChart);
+
+// Draw the chart and set the chart values
+function drawChart() {
+  var data = google.visualization.arrayToDataTable([
+    ['Task', 'Hours per Day'],
+  ['cod', {{codCount}}],
+  ['online', {{onlineCount}}],
+]);
+
+  // Optional; add a title and set the width and height of the chart
+  var options = {'title':'Payment Method', 'width':550, 'height':400};
+
+  // Display the chart inside the <div> element with id="piechart"
+  var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+  chart.draw(data, options);
+}
+</script>
+
+<script>
+var xValues = ["Italy", "France", "Spain", "USA", "Argentina"];
+var yValues = [{{productsInMenCategoryCount}}, 49, 44, 24, 15];
+var barColors = ["red", "green","blue","orange","brown"];
+
+new Chart("myChart", {
+  type: "bar",
+  data: {
+    labels: ["Men", "Women", "Kids"],
+    datasets: [{
+      backgroundColor: ["red", "green","blue"],
+      data: [{{productsInMenCategoryCount}},{{productsInWomenCategoryCount}} , {{productsInkidCategoryCount}}]
+    }]
+  },
+  options: {
+    scales: {
+      yAxes: [{
+        ticks: {
+          min: 0,
+          max: 15,
+          stepSize: 5
+        }
+      }]
+    },
+    legend: {display: false},
+    title: {
+      display: true,
+      text: "Category wise sales "
+    }
+  }
+});
+</script>
+<script>
+             function downloadPDF() {
+            var table = document.getElementById("dtBasicExample");
+            var newWin = window.open('', 'Print-Window');
+            newWin.document.open();
+            newWin.document.write('<html><body onload="window.print()">' + table.outerHTML + '</html>');
+            newWin.document.close();
+            setTimeout(function () { newWin.close(); }, 10);
+		      }
+        </script>
+</body>
+
+</html>

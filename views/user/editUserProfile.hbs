@@ -1,0 +1,22 @@
+
+
+
+<div class="d-flex flex-wrap">
+  {{#each address}}
+  <div class="card mx-2 mb-2" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">Address</h5>
+      <h6 class="card-subtitle mb-2 text-muted"></h6>
+      <p class="card-text">Firstname: {{firstName}}</p>
+      <p class="card-text">Lastname: {{lastName}}</p>
+      <p class="card-text">Address: {{address}}</p>
+      <p class="card-text">Pincode: {{postcode}}</p>
+      <p class="card-text">District: {{district}}</p>
+      <p class="card-text">City: {{city}}</p>
+      <p class="card-text">Email: {{emailAddress}}</p>
+      <p class="card-text">Phone no: {{phone}}</p>
+      <a href="/editAddressFromUser?id={{_id}}" class="card-link"><button class="btn btn-primary">Edit</button></a>
+    </div>
+  </div>
+  {{/each}}
+</div>

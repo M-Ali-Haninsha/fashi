@@ -1,0 +1,53 @@
+<section class="d-flex justify-content-center align-items-center">
+
+
+<div class="col-md-9">
+   <div class="white_shd full margin_bottom_30">
+      <div class="full graph_head">
+         <div class="heading1 margin_0 mt-4 mb-4" style="padding-left: 27rem;" >
+            <h2 style="font-family: fangsong;">Your Orders</h2>
+         </div>
+      </div>
+
+      <div class="table_section padding_infor_info">
+         <div class="table-responsive-sm">
+            <table class="table table-bordered table-striped table-hover" style=" border:2px solid rgb(0, 0, 0);">
+               <thead>
+                  <tr>
+                     <th>no</th>
+                     <th>date</th>
+                     <th>order Id</th>
+                     <th >payment</th>
+                     <th >Amount</th>
+                     <th>status</th>
+                     <th>actions</th>
+                     <th>view product</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  {{#each userOrder}}
+                  <tr>
+                     <td>{{inc @index}}</td>
+                     <td>{{date}}</td>
+                     <td> {{_id}}</td>
+                     <td>{{paymentmethod}}</td>
+                     <td>{{grandtotal}}</td>
+                     <td>{{status}}</td>
+                       <td> <div class="dropdown">
+                         {{#if (eq status "Shipped")}}
+                        <a href="/userOrderCancel?id={{id}}"><button class="btn btn-danger">cancel</button></a>
+                    {{/if}}
+                         {{#if (eq status "delivered")}}
+                        <a href="/userOrderReturn?id={{id}}"><button class="btn btn-danger">return</button></a>  
+                    {{/if}}                    
+                </div></td>
+                     <td><a href="/userViewProduct?id={{id}}"><button class="btn btn-success">view</button></a></td>
+                  </tr>
+                  {{/each}}
+               </tbody>
+            </table>
+         </div>
+      </div>
+   </div>
+</div>
+</section>

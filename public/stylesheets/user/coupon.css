@@ -1,0 +1,28 @@
+
+  .input-group {
+    display: flex;
+    align-items: center;
+  }
+  
+  input[type="text"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-right: none;
+    border-radius: 4px 0 0 4px;
+    flex: 1;
+  }
+  
+  button[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    border: 1px solid #4CAF50;
+    border-radius: 0 4px 4px 0;
+    padding: 10px;
+    cursor: pointer;
+    height: 55px;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #3e8e41;
+    border-color: #3e8e41;
+  }

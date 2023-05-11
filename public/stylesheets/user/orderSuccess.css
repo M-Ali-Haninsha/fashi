@@ -1,0 +1,21 @@
+.success{
+    justify-content: center;
+    display: flex;
+}
+
+.info{
+    margin-top: 2rem;
+}
+
+.line1{
+    margin: 0;
+}
+
+.line2{
+    margin-top: 1rem;
+}
+
+.OrderDetails{
+    margin-left: 17rem;
+    margin-top: 5rem;
+}

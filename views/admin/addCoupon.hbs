@@ -1,0 +1,66 @@
+<div class="container">
+    <div class="row ">
+        <div class="col-lg-10 col-md-8 ml-auto">
+            <div class="row align-items-center pt-md-5 mt-5 mb-5">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-title text-center mt-3">
+                            <h3>Add Coupon</h3>
+                        </div>
+
+                        <div class="card-body">
+                            <form action="/addCouponTo" method="post" name="Submission"
+                                method="post">
+                                 <div class="form-group">
+                                    <label for="couponcode">Coupon name</label>
+                                    <input type="text" class="form-control" name="couponname" id="couponname"
+                                        placeholder="Enter Coupon Name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="couponcode">Coupon Code</label>
+                                    <input type="text" class="form-control" name="couponcode" id="couponcode"
+                                        placeholder="Enter Coupon Code">
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label for="discountvalue">Discount Value</label>
+                                    <input type="text" class="form-control" name="discountvalue" id="discountvalue"
+                                        placeholder="Enter Discount Value">
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label for="minpurchase">Minimum Purchase</label>
+                                    <input type="text" class="form-control" name="minpurchase" id="minpurchase"
+                                        placeholder="Enter Minimum Purchase">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="startingdate">Starting Date</label>
+                                    <input type="date" class="form-control" name="startingdate" id="startingdate"
+                                        placeholder="Enter Starting Date">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="expiredate">Expire Date</label>
+                                    <input type="date" class="form-control" name="expiredate" id="expiredate"
+                                        placeholder="Enter Expire Date">
+                                </div>
+
+
+
+
+
+                                <p style="font-weight: 600; font-size: 15px" id="coupenErorr" class="text-danger"></p>
+
+                                <button class="btn btn-dark mt-5 mx-auto d-block btn-sm" type="submit">Add
+                                    Coupen</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

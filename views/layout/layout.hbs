@@ -1,0 +1,24 @@
+<head>
+    {{#if admin}}
+    {{>adminLinks}}
+    {{/if}}
+    {{#if user}}
+    {{>links}}
+    {{/if}}
+</head>
+<body>
+    {{#if admin}}
+    {{>adminHeader}}
+    {{/if}}
+    {{#if user}}
+    {{>userHeader}}
+    {{/if}}
+   {{{body}}}
+
+    {{#if admin}}
+    {{>adminFooter}}
+    {{/if}}
+    {{#if user}}
+    {{>footer}}
+    {{/if}}
+</body>

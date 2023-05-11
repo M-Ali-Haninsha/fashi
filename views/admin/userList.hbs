@@ -1,0 +1,46 @@
+<body>
+<div class="col-md-12">
+                           <div class="white_shd full margin_bottom_30">
+                              <div class="full graph_head">
+                                 <div class="heading1 margin_0">
+                                    <h2>User Tables</h2>
+                                 </div>
+                              </div>
+                              <div class="table_section padding_infor_info">
+                                 <div class="table-responsive-sm">
+                                    <table class="table">
+                                       <thead>
+                                          <tr>
+                                             <th>no</th>
+                                             <th>username</th>
+                                             <th>email</th>
+                                             <th>phoneNo</th>
+                                             <th>userStatus</th>
+                                             <th>actions</th>
+                                          </tr>
+                                       </thead>
+                                       <tbody>
+                                          {{#each uInfo}}
+    <tr>
+      <th class="th">{{inc @index }}</th>
+      <td>{{username}}</td>
+      <td>{{email}}</td>
+      <td>{{phoneNo}}</td>
+      <td>{{userStatus}}</td>
+      {{#if userStatus}}
+      <td><a href="/blockUser?id={{_id}}"><button class="btn btn-success">Block</button></a></td>
+      {{else}}
+      <td><a href="/unblockUser?id={{_id}}"><button class="btn btn-danger">unBlock</button></a></td>
+      {{/if}}
+    </tr>
+    {{/each}}
+                                       </tbody>
+                                    </table>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+
+</body>

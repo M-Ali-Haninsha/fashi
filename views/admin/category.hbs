@@ -1,0 +1,42 @@
+<body>
+   <div class="col-md-12" style="margin-top: 2%;">
+      <div class="white_shd full margin_bottom_30">
+         <a href="/addCategory"><button style="margin-left: 3%; margin-top:2%" class="btn btn-success">add category</button></a>
+         <div class="table_section padding_infor_info">
+            <div class="table-responsive-sm">
+               <table class="table">
+                  <thead>
+                     <tr>
+                        <th>no</th>
+                        <th>name</th>
+                        <th>status</th>
+                        <th>actions</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     {{#each catInfo}}
+                     <tr>
+                        <th class="th">{{inc @index}}</th>
+                        <td>{{name}}</td>
+                        <td>{{categoryStatus}}</td>
+
+                        <td>
+                           <a href="/editCategory?id={{_id}}"><button class="btn btn-primary">edit</button></a>
+                           <a href="/deleteCategory?id={{_id}}"><button class="btn btn-danger">delete</button></a></td>     
+                     </tr>
+                     {{/each}}
+                     {{#if msg}}
+                     <p class="text-danger">{{msg}}</p> 
+                     {{else}}
+                     <p style="display: none;" class="text-danger">{{msg}}</p> 
+                     {{/if}}
+                  </tbody>
+               </table>
+            </div>
+         </div>
+      </div>
+   </div>
+   </div>
+   </div>
+
+</body>

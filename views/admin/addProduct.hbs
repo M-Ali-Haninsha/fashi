@@ -1,0 +1,44 @@
+
+<div class="container">
+<div class="col-md-6 add-product">
+    <form onsubmit="return validateform()" action="addProductTo" method="post" enctype="multipart/form-data"> 
+  <div class="form-group">
+    <label for="name">Product Name:</label>
+    <input type="text" class="form-control" id="pName" name="pName" required>
+     <p class="text-danger" id="error-message"></p>
+  </div>
+  <div class="form-group">
+  <label for="image">Product Image:</label>
+  <input type="file" class="form-control" id="image" name="image" multiple accept="image/*" required>
+  </div>
+  <div class="form-group">
+    <label for="quantity">Product Quantity:</label>
+    <input type="text" class="form-control" id="pQuantity" name="pQuantity" required>
+  </div>
+    <div class="form-group">
+    <label for="price">Product Price:</label>
+    <input type="text" class="form-control" id="pPrice" name="pPrice" required>
+  </div>
+  <div>
+  <select class="form-control" id="category" name="category"> 
+  <option>category</option>
+  {{#each categoryData}}
+  <option id="{{this.id}}" name="{{this.name}}">{{name}}</option>
+  {{/each}}
+</select>
+</div>
+    <div class="form-group">
+    <label for="price">Description:</label>
+    <input type="text" class="form-control" id="description" name="description" required>
+  </div>
+
+      {{!-- <div class="form-group">
+    <label for="price"> Category:</label>
+    <input type="text" class="form-control" id="category" name="category">
+  </div> --}}
+  <input class="addPro-button btn btn-success" type="submit" value="Add Product">
+</form>
+</div>
+</div>
+
+<script src="/javascripts/adminJs/validation/addproductForm.js"></script>

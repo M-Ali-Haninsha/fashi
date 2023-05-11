@@ -1,0 +1,75 @@
+<div class="col-md-12">
+   <div class="white_shd full margin_bottom_30">
+      <div class="full graph_head">
+         <div class="heading1 margin_0">
+            <h2>ordered Lists</h2>
+         </div>
+      </div>
+      {{!-- <a href="#"><button class="btn btn-success" style="margin-left: 3%; margin-top: 2%;">add Coupons</button></a> --}}
+      <div class="table_section padding_infor_info">
+         <div class="table-responsive-sm">
+            <table class="table table-bordered">
+               <thead>
+                  <tr>
+                     <th>no</th>
+                     <th>date</th>
+                     <th>order Id</th>
+                     <th >payment</th>
+                     {{!-- <th >payment status</th> --}}
+                     <th >Amount</th>
+                     <th>Order status</th>
+                     <th>status</th>
+                     <th>view product</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  {{#each orderData}}
+                  <tr>
+                     <td>{{inc @index}}</td>
+                     <td>{{date}}</td>
+                     <td> {{ordereduser}}</td>
+                     <td>{{paymentmethod}}</td>
+                     {{!-- <td>{{minpurchase}}</td> --}}
+                     <td>{{grandtotal}}</td>
+                     <td> <div class="dropdown">
+                         {{#if (eq status "processing")}}
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        select
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="/confirmOrder?id={{id}}">confirm order</a>
+                        <a class="dropdown-item" href="/cancelOrder?id={{id}}">cancel order</a>
+                    </div>
+                    {{/if}}
+                         {{#if (eq status "Shipped")}}
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        select
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="/cancelOrder?id={{id}}">cancel order</a>
+                        <a class="dropdown-item" href="/delivered?id={{id}}">delivered</a>
+                    </div>
+                    {{/if}}                    
+                </div>
+                         {{#if (eq status "return requested")}}
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        select
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="/confirmReturn?id={{id}}">confirm return</a>
+                    </div>
+                    {{/if}}                
+                </td>
+                     <td>{{status}}</td>
+                     <td><a href="/adminViewProduct?id={{id}}"><button class="btn btn-success">view</button></a></td>
+                  </tr>
+                  {{/each}}
+               </tbody>
+            </table>
+         </div>
+      </div>
+   </div>
+</div>

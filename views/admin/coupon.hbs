@@ -1,0 +1,50 @@
+<div class="col-md-12">
+   <div class="white_shd full margin_bottom_30">
+      <div class="full graph_head">
+         <div class="heading1 margin_0">
+            <h2>Coupon Lists</h2>
+         </div>
+      </div>
+      <a href="/addcoupon"><button class="btn btn-success" style="margin-left: 3%; margin-top: 2%;">add Coupons</button></a>
+      <div class="table_section padding_infor_info">
+         <div class="table-responsive-sm">
+            <table class="table table-bordered">
+               <thead>
+                  <tr>
+                     <th>no</th>
+                     <th>coupon name</th>
+                     <th>coupon code</th>
+                     <th >dicount</th>
+                     <th >min purchace</th>
+                     <th>expire date</th>
+                     <th>status</th>
+                     <th>actions</th>
+                     <th>acitvate</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  {{#each couponlist}}
+                  <tr>
+                     <td>{{inc @index}}</td>
+                     <td>{{couponname}}</td>
+                     <td> {{couponcode}}</td>
+                     <td>{{discountvalue}}</td>
+                     <td>{{minpurchase}}</td>
+                     <td>{{expiredate}}</td>
+                     <td>{{status}}</td>
+                     <td><a href="/editcoupon?id={{_id}}"><button class="btn btn-primary">edit</button></a>
+                     <a href="/deleteCoupon?id={{_id}}"><button class="btn btn-danger">Delete</button></a>
+                     </td>
+                         {{#if status}}
+                     <td><a href="/deactivateCoupon?id={{_id}}"><button class="btn btn-danger">deactivate</button></a></td>
+                     {{else}}
+                     <td><a href="/activateCoupon?id={{_id}}"><button class="btn btn-success">activate</button></a></td>                     
+                     {{/if}}
+                  </tr>
+                  {{/each}}
+               </tbody>
+            </table>
+         </div>
+      </div>
+   </div>
+</div>

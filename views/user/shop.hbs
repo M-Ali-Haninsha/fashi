@@ -1,0 +1,152 @@
+<!-- Breadcrumb Section Begin -->
+<div class="breacrumb-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb-text">
+                    <a href="#"><i class="fa fa-home"></i> Home</a>
+                    <span>Shop</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb Section Begin -->
+
+<!-- Product Shop Section Begin -->
+<section class="product-shop spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-6 col-sm-8 order-2 order-lg-1 produts-sidebar-filter">
+                <div class="filter-widget">
+                    <h4 class="fw-title">Categories</h4>
+                    <ul class="filter-catagories">
+                        {{#each baseCategory}}
+                        <li><a href="?categoryId={{_id}}">{{name}}</a></li>
+                        {{/each}}
+                    </ul>
+                </div>
+                <div class="filter-widget">
+                    <a class="fw-title" data-toggle="collapse" data-target="#collapseThree">Filter Price</a>
+                
+                <div id="collapseThree" class="collapse show" data-parent="#accordionExample">
+                    <div class="card-body">
+                        <div class="shop_sidebar_price">
+                            <ul>
+                                <li><a href="?minPrice=0&maxPrice=499&categoryId={{categoryId}}&sortValue={{sortValue}}">under Rs 500</a></li>
+                                <li><a href="?minPrice=500&maxPrice=999&categoryId={{categoryId}}&sortValue={{sortValue}}">Rs 500 - 999</a></li>
+                                <li><a href="?minPrice=1000&maxPrice=1999&categoryId={{categoryId}}&sortValue={{sortValue}}">Rs 1000 - Rs 1999</a></li>
+                                <li><a href="?minPrice=2000&maxPrice=2499&categoryId={{categoryId}}&sortValue={{sortValue}}">Rs 2000 - Rs 2499</a></li>
+                                <li><a href="?minPrice=2500&maxPrice=4999&categoryId={{categoryId}}&sortValue={{sortValue}}">Rs 2500 - Rs 4999</a></li>
+                                <li><a href="?minPrice=5000&maxPrice=25000&categoryId={{categoryId}}&sortValue={{sortValue}}">Above Rs 5000</a></li>
+                            </ul>
+                        </div>
+                    </div>
+            </div>
+            </div>
+            </div>
+
+            <div class="col-lg-9 order-1 order-lg-2">
+                <div class="product-show-option">
+                    <div class="row">
+                        <div class="col-lg-7 col-md-7">
+                            <form action="/shop" method="get">
+                                <div class="advanced-search" style="margin-bottom: 1rem;">
+                                    <div class="input-group">
+                                        <input type="text" placeholder="What do you need?" name="search">
+                                        <button style="height: 3rem; margin-top: 1px;" type="submit"><i
+                                                class="fa-solid fa-magnifying-glass"></i></button>
+                                                <input type="hidden" name="categoryId" value="{{categoryId}}">
+                                                <input type="hidden" name="minPrice" value="{{minPrice}}">
+                                                <input type="hidden" name="maxPrice" value="{{maxPrice}}">
+                                                <input type="hidden" name="sortValue" value="{{sortValue}}">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-lg-7 col-md-7">
+                            <div class="select-option">
+                                <p>Sort by Price</p>
+                                <a href="?sortValue=1&categoryId={{categoryId}}"><i class="fa-solid fa-arrow-down" style="margin-top: 0.8rem;  margin-left: 0.6rem;}"></i></a>
+                                <a href="?sortValue=-1&categoryId={{categoryId}}"><i class="fa-solid fa-arrow-up" style=" margin-top: 0.8rem; margin-left: 0.6rem;}"></i></a>
+                                {{!-- <select class="sorting">
+                                    <option >Default Sorting</option>
+                                    <option value="?sortValue=1">low to high</option>
+                                    <option value="?sortValue=-1">high to low</option>
+                                </select> --}}
+                                {{!-- <select class="p-show">
+                                    <option value="">Show:</option>
+                                </select> --}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-list">
+                    <div class="row">
+                        
+                        {{#each productData}}
+                        {{#if status}}
+                        <div class="col-md-4 col-sm-6">
+
+                            <div class="product-item">
+                                <div class="pi-pic">
+                                    <img src="/images/productImages/{{image.[0]}}">
+                                    <div class="sale pp-sale">Sale</div>
+                               
+                                    <ul>
+                                        <li><button onclick="toAdd('{{_id}}')"><i style="height: 1rem; width: 1rem;}" class="fa-sharp fa-solid fa-bag-shopping"></i></button></li>
+                                        <li class="quick-view"><a href="/singleView?id={{_id}}">+ Quick View</a></li>
+                                    </ul>
+                                </div>
+                                <div class="pi-text">
+
+                                    <a href="#">
+                                        <h5>{{name}} </h5>
+                                    </a>
+                                    <div class="product-price">
+                                        ₹{{price}}
+                                        {{!-- <span>$35.00</span> --}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {{/if}}
+                        {{/each}}
+
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div>
+                                {{{pagination totalPages currentPage}}}
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+</section>
+<!-- Product Shop Section End -->
+
+
+
+
+
+<script>
+    function toAdd(id) {
+        $.ajax({
+            url: '/addToCart?id=' + id,
+            method: 'get',
+            success: (response) => {
+                if (response.status) {
+                    swal("Product addedd!", "Please check your cart!", "success");
+                }
+            }
+        })
+    }
+</script>
+{{!-- <script src="/javascripts/pagination.js"></script> --}}
+
+
+

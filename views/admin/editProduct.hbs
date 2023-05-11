@@ -1,0 +1,122 @@
+
+
+<div class="col-md-6">
+    {{#with productData}}
+    <form action="/editProductTo?id={{_id}}" method="post" enctype="multipart/form-data"> 
+  <div class="form-group">
+    
+    <label for="name">Product Name:</label>
+    <input type="text" class="form-control" id="pName" name="pName" value={{name}}>
+  </div>
+  <div class="form-group">
+  <label for="image">Product Image:</label>
+  <input type="file" class="form-control" id="image" name="image" multiple accept="image/*"  >
+  </div>
+  <div class="form-group">
+
+    
+
+
+    
+    <div>
+        <img id="img-preview-1" src="/images/productImages/{{image.[0]}}" style="width: 21%; height: 21%;">
+ <button  onclick="pullImage('{{_id}}', '{{image.[0]}}')" class="btn btn-danger" type="button"> delete</button>
+    </div>
+
+<div >
+   <img id="img-preview-2" src="/images/productImages/{{image.[1]}}" style="width: 21%; height: 21%;">
+ <button onclick="pullImage('{{_id}}', '{{image.[1]}}')" class="btn btn-danger" type="button"> delete</button>
+</div>
+   
+<div>
+  <img id="img-preview-3" src="/images/productImages/{{image.[2]}}" alt="add image" style="width: 21%; height: 21%;">
+ <button onclick="pullImage('{{_id}}', '{{image.[2]}}')" class="btn btn-danger" type="button"> delete</button>
+</div>
+
+    <input type="hidden" name="image[]" value="{{image.[0]}}">
+    <input type="hidden" name="image[]" value="{{image.[1]}}">
+    <input type="hidden" name="image[]" value="{{image.[2]}}">
+  </div>
+  <div class="form-group">
+    <label for="quantity">Product Quantity:</label>
+    <input type="text" class="form-control" id="pQuantity" name="pQuantity" value={{quantity}}>
+  </div>
+    <div class="form-group">
+    <label for="price">Product Price:</label>
+    <input type="text" class="form-control" id="pPrice" name="pPrice" value="{{price}}">
+  </div>
+  <div>
+    <div class="form-group">
+    <label for="price">Description:</label>
+    <input type="text" class="form-control" id="description" name="description" value="{{description}}">
+  </div>
+  <div>
+    {{/with}}
+    
+  <select class="form-control" name="pCategory">
+  <option>{{cat.name}}</option>
+  {{#each categoryData}}
+  <option>{{name}}</option>
+  {{/each}}
+</select>
+</div>
+<div class="form-group mb-3 ">
+<input style="color: black !important;" id="id-field" type="hidden" class="form-control" placeholder="Password" name="id" value="{{editUser._id}}">
+</div>
+  <input class="btn btn-success" type="submit" value="Edit Product">
+</form>
+</div>
+
+<script>
+    const inputElement = document.getElementById("image");
+    const preview1 = document.getElementById("img-preview-1");
+    const preview2 = document.getElementById("img-preview-2");
+    const preview3 = document.getElementById("img-preview-3");
+
+    inputElement.addEventListener("change", handleFiles, false);
+
+    function handleFiles() {
+        const fileList = this.files;
+        const reader1 = new FileReader();
+        const reader2 = new FileReader();
+        const reader3 = new FileReader();
+
+        reader1.onload = function () {
+            preview1.src = reader1.result;
+        };
+        reader2.onload = function () {
+            preview2.src = reader2.result;
+        };
+        reader3.onload = function () {
+            preview3.src = reader3.result;
+        };
+
+        reader1.readAsDataURL(fileList[0]);
+        reader2.readAsDataURL(fileList[1]);
+        reader3.readAsDataURL(fileList[2]);
+    }
+</script>
+
+<script>
+
+  function pullImage(productId, imageName) {
+    console.log(productId)
+    console.log(imageName)
+  $.ajax({
+    url: '/imagePull',
+    method: 'delete',
+    data: {
+      productId: productId,
+      imageName: imageName
+    },
+    success: function(response) {
+      if(response.status){
+
+        location.reload()
+      }
+    }
+  });
+}
+
+</script>
+

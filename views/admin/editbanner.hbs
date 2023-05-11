@@ -1,0 +1,89 @@
+
+
+<div class="col-md-6">
+    {{#with banner}}
+    <form action="/editbannerto" method="post" enctype="multipart/form-data"> 
+  <div class="form-group">
+    
+    <label for="name">Banner:</label>
+    <hr>
+  </div>
+  <div class="form-group">
+  <label for="image">Main Banner:</label>
+  <input type="file" class="form-control" id="image" name="image" multiple accept="image/*"  >
+  </div>
+  <div class="form-group">
+
+    
+
+
+    <img id="img-preview-1" src="/images/productImages/{{mainImageBanner.[0]}}" style="width: 98%; height: 21%;">
+        
+
+
+    <img id="img-preview-2" src="/images/productImages/{{mainImageBanner.[1]}}" style="width: 98%; height: 21%; margin-top: 1rem;">
+
+
+
+
+   
+
+
+    <input type="hidden" name="image[]" value="{{image.[0]}}">
+    <input type="hidden" name="image[]" value="{{image.[1]}}">
+  </div>
+  <div class="form-group">
+    <label for="quantity">Sub Heading:</label>
+    <input type="text" class="form-control" id="subheading" name="subheading" value={{span1}}>
+  </div>
+    <div class="form-group">
+    <label for="price">Main Heading:</label>
+    <input type="text" class="form-control" id="MainH" name="MainH" value="{{mainH1}}">
+  </div>
+  <div>
+    <div class="form-group">
+    <label for="price">paragraph:</label>
+    <input type="text" class="form-control" id="para" name="para" value="{{mainP}}">
+  </div>
+
+{{!-- <div class="form-group mb-3 ">
+<input style="color: black !important;" id="id-field" type="hidden" class="form-control" placeholder="Password" name="id" value="{{editUser._id}}">
+</div> --}}
+<hr>
+  <input class="btn btn-success" type="submit" value="Edit Banner">
+</form>
+{{/with}}
+</div>
+
+<script>
+    const inputElement = document.getElementById("image");
+    const preview1 = document.getElementById("img-preview-1");
+    const preview2 = document.getElementById("img-preview-2");
+    const preview3 = document.getElementById("img-preview-3");
+
+    inputElement.addEventListener("change", handleFiles, false);
+
+    function handleFiles() {
+        const fileList = this.files;
+        const reader1 = new FileReader();
+        const reader2 = new FileReader();
+        const reader3 = new FileReader();
+
+        reader1.onload = function () {
+            preview1.src = reader1.result;
+        };
+        reader2.onload = function () {
+            preview2.src = reader2.result;
+        };
+        reader3.onload = function () {
+            preview3.src = reader3.result;
+        };
+
+        reader1.readAsDataURL(fileList[0]);
+        reader2.readAsDataURL(fileList[1]);
+        reader3.readAsDataURL(fileList[2]);
+    }
+</script>
+
+
+

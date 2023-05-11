@@ -1,0 +1,63 @@
+<section class="checkout-section spad">
+    <div class="container">
+         <div class="checkout-content col-md-6">
+                        <a href="/editProfile" class="content-btn">Click Here To Add new address</a>
+                    </div>
+        {{#each add}}
+        <form action="/add" method="post" class="checkout-form">
+            <div class="row">
+                <div class="col-lg-6">
+                   
+                    <h4>address</h4>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <label for="fir">First Name<span>*</span></label>
+                            <input type="text" id="fir" name="firstname" value="{{firstName}}" readonly>
+                        </div>
+                        <div class="col-lg-6">
+                            <label for="last">Last Name<span>*</span></label>
+                            <input type="text" id="last" name="lastname" value="{{lastName}}" readonly>
+                        </div>
+                        <div class="col-lg-12">
+                            <label for="cun-name">Address</label>
+                            <input type="text" id="cun-name" name="address" value="{{address}}" readonly>
+                        </div>
+                        <div class="col-lg-12">
+                            <label for="cun">Country<span>*</span></label>
+                            <input type="text" id="cun" name="country" value="{{country}}" readonly>
+                        </div>
+                        <div class="col-lg-12">
+                            <label for="street">Postcode<span>*</span></label>
+                            <input type="text" id="street" class="street-first" name="postcode" value="{{postcode}}" readonly>
+                           
+                        </div>
+                        <div class="col-lg-12">
+                            <label for="zip">District</label>
+                            <input type="text" id="zip" name="district" value="{{district}}" readonly>
+                        </div>
+                        <div class="col-lg-12">
+                            <label for="town">Town / City<span>*</span></label>
+                            <input type="text" id="town" name="city" value="{{city}}" readonly>
+                        </div>
+                        <div class="col-lg-6">
+                            <label for="email">Email Address<span>*</span></label>
+                            <input type="text" id="email" name="email" value="{{emailAddress}}" readonly>
+                        </div>
+                        <div class="col-lg-6">
+                            <label for="phone">Phone<span>*</span></label>
+                            <input type="text" id="phone" name="phone" value="{{phone}}" readonly>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="order-btn">
+                                <button type="submit" class="site-btn place-btn">add</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </form>
+        {{/each}}
+    </div>
+</section>
+

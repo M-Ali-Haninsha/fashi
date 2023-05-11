@@ -58,13 +58,13 @@ const forgotPassword = (email, userId) => {
     port: 465,
     secure: true,
     auth: {
-      user: "johnabraha57@gmail.com",
-      pass: "tiwbzhsjpldbeade",
+      user:process.env.NODEMAILEREMAIL,
+      pass: process.env.NODEMAILERPASS,
     },
   });
 
   const mailOptions = {
-    from: "johnabraha57@gmail.com",
+    from: process.env.NODEMAILEREMAIL,
     to: email,
     subject: "Your OTP",
     html:

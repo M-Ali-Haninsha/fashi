@@ -12,6 +12,7 @@ const mongoose = require('mongoose');
 const bannercollection = require('../models/banner');
 const blog = require("../models/userBase");
 const { log } = require("console");
+const category = require("../models/category");
 //password encryption
 const bcryptPassword = async (password) => {
   try {
@@ -96,7 +97,12 @@ const index =  async function(req, res) {
   const kid = await categorycollection.findOne({name:"kids"})
   const kidId = kid.id
   const kidPro = await products.find({category:kidId})
-  res.render("user/index", { user: true, userName, banner, menPro,womenPro, kidPro });
+
+  const baseCategory1 = await categorycollection.find().limit(1)
+  const baseCategory2 = await categorycollection.find().skip(1).limit(1)
+  const baseCategory3 = await categorycollection.find().skip(2).limit(1)
+
+  res.render("user/index", { user: true, userName, banner, menPro,womenPro, kidPro ,baseCategory1,baseCategory2,baseCategory3});
 };
 
 //signup page

@@ -1,6 +1,7 @@
 const { response } = require("express");
 const category = require("../models/category");
 const products = require("../models/product");
+const cloudinary = require('../configuration/cloudinary')
 
 const prductlist = async (req, res) => {
   const product = await products.find().populate("category");
@@ -13,7 +14,13 @@ const addProduct = async (req, res) => {
 
 const addProductTo = async (req, res) => {
   try {
-    const img = req.files.map((image) => image.filename);
+    let img = []
+    for(const file of req.files){
+     const result = await cloudinary.uploader.upload(file.path)
+       img.push(result.public_id)
+
+      }
+    // const img = req.files.map((image) => image.filename);
     const categoryId = await category.findOne({ name: req.body.category });
     const product = new products({
       name: req.body.pName,
@@ -23,7 +30,8 @@ const addProductTo = async (req, res) => {
       category: categoryId._id,
       description:req.body.description
     });
-    await product.save();
+    const data = await product.save();
+    console.log(data);
     res.redirect("/addProduct");
   } catch (err) {
     console.log(err);
@@ -86,6 +94,39 @@ const editProduct = async (req, res) => {
 //     console.log(err);
 //   }
 // };
+// const editProductTo = async (req, res) => {
+//   try {
+//     const Fcategory = await category.findOne({ name: req.body.pCategory });
+//     const categoryiD = Fcategory._id;
+//     let updatedFields = {
+//       name: req.body.pName,
+//       quantity: req.body.pQuantity,
+//       price: req.body.pPrice,
+//       description: req.body.description,
+//       category: categoryiD,
+//     };
+
+//     if (req.files && req.files.length > 0) {
+//       // New images were uploaded, add them to the updatedFields object
+//       updatedFields.image = req.files.map((image) => image.filename);
+      
+//       // Get the existing product and append the new image(s) to the existing image array
+//       const existingProduct = await products.findById(req.query.id);
+//       if (existingProduct.image) {
+//         updatedFields.image = existingProduct.image.concat(updatedFields.image);
+//       }
+//     }
+
+//     await products.findByIdAndUpdate(
+//       { _id: req.query.id },
+//       { $set: updatedFields }
+//     );
+
+//     res.redirect("/productList");
+//   } catch (err) {
+//     console.log(err);
+//   }
+// };
 const editProductTo = async (req, res) => {
   try {
     const Fcategory = await category.findOne({ name: req.body.pCategory });
@@ -97,16 +138,18 @@ const editProductTo = async (req, res) => {
       description: req.body.description,
       category: categoryiD,
     };
-
+    
+    // Check if new images were uploaded
     if (req.files && req.files.length > 0) {
-      // New images were uploaded, add them to the updatedFields object
-      updatedFields.image = req.files.map((image) => image.filename);
-      
-      // Get the existing product and append the new image(s) to the existing image array
-      const existingProduct = await products.findById(req.query.id);
-      if (existingProduct.image) {
-        updatedFields.image = existingProduct.image.concat(updatedFields.image);
+      let img = [];
+      for(const file of req.files){
+        const result = await cloudinary.uploader.upload(file.path);
+        img.push(result.public_id);
+        console.log(result);
       }
+      
+      // Replace existing images with new images
+      updatedFields.image = img;
     }
 
     await products.findByIdAndUpdate(
@@ -119,6 +162,7 @@ const editProductTo = async (req, res) => {
     console.log(err);
   }
 };
+
 
 
 const pullImage = async(req, res)=>{

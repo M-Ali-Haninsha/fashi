@@ -26,9 +26,7 @@
                      </tr>
                      {{/each}}
                      {{#if msg}}
-                     <p class="text-danger">{{msg}}</p> 
-                     {{else}}
-                     <p style="display: none;" class="text-danger">{{msg}}</p> 
+                     <p id="message" class="text-danger">{{msg}}</p> 
                      {{/if}}
                   </tbody>
                </table>
@@ -40,3 +38,11 @@
    </div>
 
 </body>
+
+<script>
+   const error =  document.getElementById('message')
+   setTimeout(()=>{
+      error.innerHTML=""
+   },4000)
+
+</script>

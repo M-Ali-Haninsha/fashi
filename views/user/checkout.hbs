@@ -288,11 +288,11 @@
                                 <li class="fw-normal">Subtotal <span>{{ttl}}</span></li>
                                 {{#if cActive}}
                                 <li class="total-price">coupon <span class="text-danger">-{{couponPrice}}</span></li>
-                                 <li class="total-price">wallet <span class="text-danger">-{{wallet}}</span></li>
+                                 <li class="total-price">wallet <span class="text-success">{{wallet}}</span></li>
                                 <li class="total-price">Total <span>{{total}}</span></li>
                                 
                                 {{else}}
-                                <li class="total-price">wallet <span class="text-danger">-{{wallet}}</span></li>
+                                <li class="total-price">wallet <span class="text-success">{{wallet}}</span></li>
 
                                 <li class="total-price">Total <span>{{total}}</span></li>
                                 {{/if}}
@@ -300,6 +300,13 @@
                             </ul>
 
                             <div class="payment-check">
+                                <div class="pc-item">
+                                    <label for="pc-wallet">
+                                        wallet
+                                        <input type="radio" id="pc-wallet" name="payment" value="wallet">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
                                 <div class="pc-item">
                                     <label for="pc-check">
                                         COD

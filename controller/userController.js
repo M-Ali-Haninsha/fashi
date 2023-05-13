@@ -426,69 +426,40 @@ const checkout = async (req, res) => {
       const couponPrice = coupondata.discountvalue
       const find = await cart.findOne({ user: user });
       let total = find.totalPrice - couponPrice;
-
-      const userWallet = await userBase.find({_id:id})
-    let wallet = userWallet[0].wallet.rPrice
-    let newWallet = 0
-      if(wallet > 0){
-        if(wallet <= total){
-
-          total = total - wallet
-          newWallet = 0
-          req.session.grandtotal = total
-
-          req.session.wallet = newWallet
-        }else{ 
-           newWallet = wallet - total
-          req.session.wallet = newWallet
-          total = 0
-          req.session.grandtotal = total
-        }
-      }
       const ttl = find.totalPrice
+      req.session.grandtotal = total
       
       const userName = req.session.username;
       const rAdd = req.session.bodyadd;
-
-
+      const walletdata = await userBase.findOne({_id:id})
+      const wallet = walletdata.wallet.rPrice
       res.render("user/checkout", {
         user: true,
         userName,
         productCheckout,
         couponPrice,
-        ttl,
         total,
         rAdd,
+        ttl,
+        wallet,
         add,
         cActive,
         selectAddress,
-        coupon,
-        wallet
+        coupon
       });
     }else{
       const cActive= false
+      const walletdata = await userBase.findOne({_id:id})
+      const wallet = walletdata.wallet.rPrice
         const find = await cart.findOne({ user: user });
     let total = find.totalPrice;
     const ttl = find.totalPrice
-   
+    req.session.grandtotal = total
     const userName = req.session.username;
     const rAdd = req.session.bodyadd;
 
     
-    const userWallet = await userBase.find({_id:id})
-    let wallet = userWallet[0].wallet.rPrice
-    let newWallet = 0
-    if(wallet <= total){
-       total = total - wallet
-       newWallet = 0
-       req.session.grandtotal = total
-       req.session.wallet = newWallet
-    }else{
-      newWallet = wallet-total
-      req.session.wallet = newWallet
-      total = 0
-      req.session.grandtotal = total
-    }
+
    
     res.render("user/checkout", {
       user: true,
@@ -497,10 +468,10 @@ const checkout = async (req, res) => {
       total,
       rAdd,
       ttl,
+      wallet,
       add,
       cActive,
       selectAddress,
-      wallet
     });
     }
 

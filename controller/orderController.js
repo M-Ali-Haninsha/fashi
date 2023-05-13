@@ -2,6 +2,7 @@ const ordercollection = require("../models/placeOrder");
 const cartcollection = require("../models/cart");
 const usercollection = require('../models/userBase')
 const productcollection = require('../models/product')
+const couponcollection = require('../models/couponModel')
 const Razorpay = require("razorpay");
 require("dotenv").config();
 
@@ -45,7 +46,82 @@ const placeOrder = async (req, res) => {
     const date = new Date();
     const stat = "processing"
 
-       if (req.body.payment === "cod") {
+    if (req.body.payment === "wallet") {
+      const id = req.session.userId;
+      await ordercollection.insertMany([
+        {
+          ordereduser: user,
+          deliveryaddress: deliveryaddress,
+          date: date,
+          grandtotal: grandtotal,
+          products: product,
+          paymentmethod: paymentmethod,
+          status:stat
+        },
+      ]);
+
+      const coupon = req.session.code
+      if(coupon){
+        const coupondata = await couponcollection.findOne({couponcode:coupon})
+        const couponprice = coupondata.discountvalue
+        console.log(couponprice)
+        const find = await cartcollection.findOne({ user: user });
+      let total = find.totalPrice - couponprice ;
+      const userWallet = await usercollection.find({_id:id})
+      let wallet = userWallet[0].wallet.rPrice
+      let newWallet = 0
+        if(wallet > 0){
+          if(wallet <= total){
+  
+            total = total - wallet
+            newWallet = 0
+           
+  
+            req.session.wallet = newWallet
+          }else{ 
+             newWallet = wallet - total
+            req.session.wallet = newWallet
+            total = 0
+          }
+        }
+      }else{
+        const find = await cartcollection.findOne({ user: user });
+      let total = find.totalPrice ;
+
+      const userWallet = await usercollection.find({_id:id})
+      let wallet = userWallet[0].wallet.rPrice
+      let newWallet = 0
+        if(wallet > 0){
+          if(wallet <= total){
+  
+            total = total - wallet
+            newWallet = 0
+           
+  
+            req.session.wallet = newWallet
+          }else{ 
+             newWallet = wallet - total
+            req.session.wallet = newWallet
+            total = 0
+          }
+        }
+      }
+      
+      
+
+      await usercollection.updateOne({_id:req.session.userId},{$set:{'wallet.rPrice':req.session.wallet}})
+
+      for (const { productId, quantity } of products) {
+        await productcollection.updateOne(
+          { _id: productId._id },
+          { $inc: { quantity: -quantity } }
+        );
+      }
+
+      await cartcollection.deleteOne({ user: id });
+      res.json({ status: "cod" });
+    }
+     else if (req.body.payment === "cod") {
       const id = req.session.userId;
       await ordercollection.insertMany([
         {
@@ -60,7 +136,7 @@ const placeOrder = async (req, res) => {
       ]);
 
 
-      await usercollection.updateOne({_id:req.session.userId},{$set:{'wallet.rPrice':req.session.wallet}})
+      // await usercollection.updateOne({_id:req.session.userId},{$set:{'wallet.rPrice':req.session.wallet}})
 
       for (const { productId, quantity } of products) {
         await productcollection.updateOne(
@@ -166,7 +242,7 @@ const userVerifypayment = async function (req, res) {
         ]);
 
 
-        await usercollection.updateOne({_id:req.session.userId},{$set:{'wallet.rPrice':req.session.wallet}})
+        // await usercollection.updateOne({_id:req.session.userId},{$set:{'wallet.rPrice':req.session.wallet}})
 
         for (const { productId, quantity } of products) {
           await productcollection.updateOne(

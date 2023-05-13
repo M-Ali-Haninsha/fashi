@@ -325,6 +325,9 @@
                             <div class="order-btn">
                                 <button type="submit" class="site-btn place-btn">Place Order</button>
                             </div>
+                            <div>
+                                <span id="error" class="text-danger"></span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -355,6 +358,8 @@
                    .then(()=>{
                     location.href = '/orderSuccess'
                    }) 
+                }else if(response.status== false){
+                    $('#error').html('insufficient balance, try other way of payment')
                 }
             }
         })

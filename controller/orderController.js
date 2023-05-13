@@ -69,19 +69,27 @@ const placeOrder = async (req, res) => {
       let total = find.totalPrice - couponprice ;
       const userWallet = await usercollection.find({_id:id})
       let wallet = userWallet[0].wallet.rPrice
-      let newWallet = 0
         if(wallet > 0){
-          if(wallet <= total){
+          if(wallet >= total){
   
-            total = total - wallet
-            newWallet = 0
+            wallet = wallet - total
            
   
-            req.session.wallet = newWallet
+            req.session.wallet = wallet
+            await usercollection.updateOne({_id:req.session.userId},{$set:{'wallet.rPrice':req.session.wallet}})
+
+            for (const { productId, quantity } of products) {
+              await productcollection.updateOne(
+                { _id: productId._id },
+                { $inc: { quantity: -quantity } }
+              );
+            }
+      
+            await cartcollection.deleteOne({ user: id });
+            res.json({ status: "cod" });
           }else{ 
-             newWallet = wallet - total
-            req.session.wallet = newWallet
-            total = 0
+            res.json({status:false})
+
           }
         }
       }else{
@@ -90,36 +98,36 @@ const placeOrder = async (req, res) => {
 
       const userWallet = await usercollection.find({_id:id})
       let wallet = userWallet[0].wallet.rPrice
-      let newWallet = 0
         if(wallet > 0){
-          if(wallet <= total){
+          if(wallet >= total){
   
-            total = total - wallet
-            newWallet = 0
+            wallet = wallet - total
+          
            
   
-            req.session.wallet = newWallet
+            req.session.wallet = wallet
+            await usercollection.updateOne({_id:req.session.userId},{$set:{'wallet.rPrice':req.session.wallet}})
+
+            for (const { productId, quantity } of products) {
+              await productcollection.updateOne(
+                { _id: productId._id },
+                { $inc: { quantity: -quantity } }
+              );
+            }
+      
+            await cartcollection.deleteOne({ user: id });
+            res.json({ status: "cod" });
+
           }else{ 
-             newWallet = wallet - total
-            req.session.wallet = newWallet
-            total = 0
+        
+            res.json({status:false})
           }
         }
       }
       
       
 
-      await usercollection.updateOne({_id:req.session.userId},{$set:{'wallet.rPrice':req.session.wallet}})
-
-      for (const { productId, quantity } of products) {
-        await productcollection.updateOne(
-          { _id: productId._id },
-          { $inc: { quantity: -quantity } }
-        );
-      }
-
-      await cartcollection.deleteOne({ user: id });
-      res.json({ status: "cod" });
+     
     }
      else if (req.body.payment === "cod") {
       const id = req.session.userId;

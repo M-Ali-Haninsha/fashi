@@ -9,12 +9,59 @@ const { log } = require("handlebars");
 
 const adminHome = async(req, res, next) => {
   try{
-  const find = await ordercollection.find({status:"delivered"})
-  const orderData = find.map((order)=>{
-    const date = new Date(order.date)
-    const mainDate = date.toLocaleString()
-    return{...order._doc,date:mainDate}
-  })
+
+//   const from = req.query.from
+//   const to = req.query.to
+
+//   let query = {status : "delivered" }
+//   if (from && to){
+//     query.date = {
+//       $gte:from,
+//       $lte:to
+//     };
+//   }else if(from){
+//     query.date = {
+//       $gte: from
+//     }
+//   }else if(to){
+//     query.date = {
+//       $lte: to
+//     }
+//   }
+
+
+// const find = await ordercollection.find({status:"delivered"})
+// const orderData = find.map((order)=>{
+//   const date = new Date(order.date)
+//   const mainDate = date.toLocaleString()
+//   return{...order._doc,date:mainDate}
+// })
+// console.log(orderData)
+const from = req.query.from;
+const to = req.query.to;
+
+let query = { status: "delivered" };
+
+if (from && to) {
+  query.date = { $gte: new Date(from), $lte: new Date(to) };
+} else if (from) {
+  query.date = { $gte: new Date(from) };
+} else if (to) {
+  query.date = { $lte: new Date(to) };
+}
+
+const deliveredProducts = await ordercollection.find(query);
+
+const orderData = deliveredProducts.map((order) => {
+  const date = new Date(order.date);
+  const mainDate = date.toLocaleString();
+  return { ...order._doc, date: mainDate };
+});
+
+console.log(orderData);
+
+
+
   const codCount = await ordercollection.findOne({paymentmethod:"cod",  status :"delivered"}).count() 
   const onlineCount = await ordercollection.findOne({paymentmethod:"online",  status :"delivered"}).count() 
 
@@ -51,7 +98,7 @@ const kids = await ordercollection.find({ status: 'delivered' }, 'products')
   const productsInWomenCategoryCount = productsInWomenCategory.length
 
 
-  res.render("admin/adminHome", { admin: true , orderData, codCount, onlineCount,productsInMenCategoryCount,productsInkidCategoryCount,productsInWomenCategoryCount})  
+  res.render("admin/adminHome", { admin: true , orderData,deliveredProducts, codCount, onlineCount,productsInMenCategoryCount,productsInkidCategoryCount,productsInWomenCategoryCount})  
   }catch(err){
     console.log(err)
   }
@@ -241,6 +288,7 @@ const confirmReturn = async (req, res) => {
     console.log("Error in confirmReturn:", err)
   }
 }
+
 
 
 

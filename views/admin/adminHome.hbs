@@ -170,7 +170,18 @@
 
                <div class="col-md-12">
                   <button type="button" class="btn btn-danger btn-sm" style="margin-left: 4px;  margin-bottom: 1rem;" onclick="downloadPDF()">Export to PDF</button>
+                  <form action="" class="d-flex">
+                     <div>
+                        <input type="date" value="{{from}}" name="from">
+                     </div>
+                     <div>
+                        <input type="date" value="{{to}}" name="to">
+                     </div>
 
+                     <div>
+                        <a href=""> <button class="btn btn-success" type="submit">find</button></a>
+                     </div>
+                  </form>
                   <table id="dtBasicExample" class="table table-striped table-bordered" style="width:100%">
                      <thead>
                         <tr>

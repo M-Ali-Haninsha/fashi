@@ -799,6 +799,26 @@ const add = (req, res) => {
   res.redirect("/checkout");
 };
 
+
+const walletHistory = async(req, res)=>{
+  try{
+ const userName = req.session.username;
+  const walletHistoryData = await blog.find({_id:req.session.userId})
+  const find = walletHistoryData[0].walletHistory
+  const walletHistory = find.map((order)=>{
+    const date = new Date(order.transactionDate)
+    const mainDate = date.toLocaleString()
+    const id = order.id
+    return{...order._doc,transactionDate:mainDate,id}
+  })
+
+  res.render('user/walletHistory', {user:true,userName, walletHistory})
+  }catch(err){
+    console.log(err)
+  }
+ 
+}
+
 const signout = (req, res) => {
   req.session.userIn = false;
   req.session.username = false;
@@ -836,5 +856,6 @@ module.exports = {
   userCancelOrder,
   userOrderReturn,
   editaddressfromuser,
-  editaddressfromuserto
+  editaddressfromuserto,
+  walletHistory
 };

@@ -284,9 +284,26 @@ const confirmReturn = async (req, res) => {
       const price = order.grandtotal
       const user = order.ordereduser
       await blog.updateOne({ _id: user }, { $inc: { 'wallet.rPrice': price } })
-    
+
+      let currWallet = await blog.findOne({_id:user}) 
+      let wallet = currWallet.wallet.rPrice
+      const transaction = {
+        transactionDate: new Date(),
+        transactionType: "wallet payment",
+        transactionAmount: price,
+        transactionStatus: "successful",
+        type:"Credit",
+        currentBalance: wallet
+      };
+
+      await blog.updateOne({_id:user},{$push:{walletHistory:transaction}},
+        { writeConcern: { acknowledged: true } });
+
 
     await ordercollection.updateOne({ _id: id }, { $set: { status: "return confirmed" } })
+
+
+
 
     res.redirect('/order')
   } catch (err) {

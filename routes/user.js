@@ -88,6 +88,8 @@ router.get('/userOrderReturn', userIn,activeOrNot, myController.userOrderReturn)
 
 router.get('/userViewProduct', userIn,activeOrNot, myController.userViewProduct)
 
+router.get('/walletHistory', userIn,activeOrNot, myController.walletHistory)
+
 
 
 router.get('/signout', myController.signout)

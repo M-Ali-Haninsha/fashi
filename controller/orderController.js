@@ -105,10 +105,10 @@ const placeOrder = async (req, res) => {
           
             const transaction = {
               transactionDate: new Date(),
-              transactionType: "payment",
+              transactionType: "wallet payment",
               transactionAmount: total,
               transactionStatus: "successful",
-              description: "Payment for order",
+              type:"Debit",
               currentBalance: wallet
             };
   
@@ -117,7 +117,7 @@ const placeOrder = async (req, res) => {
 
 
             console.log("keriiiiii")
-            const test = await usercollection.updateOne({_id:req.session.userId},{$push:{'wallet.walletHistory':transaction}},
+            const test = await usercollection.updateOne({_id:req.session.userId},{$push:{walletHistory:transaction}},
             { writeConcern: { acknowledged: true } });
 
             console.log(test);

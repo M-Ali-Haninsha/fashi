@@ -1,0 +1,31 @@
+<section>
+   <table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">N0</th>
+      <th scope="col">transactionDate</th>
+      <th scope="col">transactionId</th>
+      <th scope="col">transactionAmount</th>
+      <th scope="col">transactionStatus</th>
+      <th scope="col">transactionType</th>
+      <th scope="col">currentBalance</th>
+
+
+
+    </tr>
+  </thead>
+  <tbody>
+    {{#each walletHistory}}
+    <tr>
+      <th scope="row">{{inc @index}}</th>
+      <td>{{transactionDate}}</td>
+      <td>{{_id}}</td>
+      <td>{{transactionAmount}}</td>
+      <td>{{transactionStatus}}</td>
+      <td>{{type}}</td>
+      <td>{{currentBalance}}</td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table> 
+</section>

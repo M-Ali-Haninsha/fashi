@@ -1,6 +1,9 @@
+<button type="button" class="btn btn-danger btn-sm mt-4 ml-4" style="margin-left: 4px;" onclick="downloadPDF()">Export to PDF</button>
 <section class="contact spad m-4">
   <div class="container">
-    <div class="row">
+    
+
+    <div class="row" id="products">
       {{#each userPro}}
       <div class="col-6 col-xl-5 mb-4">
         <div class="bg-light rounded h-100 p-4">
@@ -34,25 +37,7 @@
             <span style="margin-left: 1rem;">{{deliveryaddress.phonenumber}}</span>
           </p>
         </div>
-{{!-- {{#each userPro}}
-        <div class="cart-total mb-3">
-          <p class="d-flex">
-            <span>Subtotal</span>
-            <span>₹{{subPrice}}</span>
-          </p>
-          {{/each}} --}}
-          {{!-- <p class="d-flex">
-            <span>Delivery</span>
-            <span>₹0.00</span>
-          </p>
-          <p class="d-flex">
-            <span>Discount</span>
-            <span>₹{{orderData.discount}} ({{orderData.couponCode}})</span>
-          </p>
-          <p class="d-flex">
-            <span>Wallet</span>
-            <span>₹{{orderData.wallet}}</span>
-          </p> --}}
+
           <hr>
           <p class="d-flex total-price">
             <span>Total:</span>
@@ -64,4 +49,16 @@
     </div>
   </div>
 </section>
+
+<script>
+function downloadPDF() {
+  var section = document.querySelector("section.contact");
+  var newWin = window.open('', 'Print-Window');
+  console.log(newWin)
+  newWin.document.open();
+  newWin.document.write('<html><body onload="window.print()">' + section.outerHTML + '</html>');
+  newWin.document.close();
+  setTimeout(function () { newWin.close(); }, 10);
+}
+</script>
 

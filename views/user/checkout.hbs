@@ -234,39 +234,39 @@
                       
                         <div class="col-lg-6">
                             <label for="fir">First Name<span>*</span></label>
-                            <input type="text" id="fir" value="{{selectAddress.firstName}}" name="firstname" >
+                            <input type="text" id="fir" value="{{selectAddress.firstName}}" name="firstname" required >
                         </div>
                         <div class="col-lg-6">
                             <label for="last">Last Name<span>*</span></label>
-                            <input type="text" id="last" value="{{selectAddress.lastName}}" name="lastname" >
+                            <input type="text" id="last" value="{{selectAddress.lastName}}" name="lastname"  required>
                         </div>
                         <div class="col-lg-12">
                             <label for="cun-name">Address</label>
-                            <input type="text" id="cun-name" value="{{selectAddress.address}}" name="address" >
+                            <input type="text" id="cun-name" value="{{selectAddress.address}}" name="address" required>
                         </div>
                         <div class="col-lg-12">
                             <label for="cun">Country<span>*</span></label>
-                            <input type="text" id="cun" value="{{selectAddress.country}}" name="country" >
+                            <input type="text" id="cun" value="{{selectAddress.country}}" name="country" required>
                         </div>
                         <div class="col-lg-12">
                             <label for="street">Postcode<span>*</span></label>
-                            <input type="text" id="street" class="street-first" value="{{selectAddress.postcode}}" name="pincode" >
+                            <input type="number" id="street" class="street-first" value="{{selectAddress.postcode}}" name="pincode" required>
                         </div>
                         <div class="col-lg-12">
                             <label for="zip">District</label>
-                            <input type="text" id="zip" value="{{selectAddress.district}}" name="district" >
+                            <input type="text" id="zip" value="{{selectAddress.district}}" name="district" required>
                         </div>
                         <div class="col-lg-12">
                             <label for="town">Town / City<span>*</span></label>
-                            <input type="text" id="town" value="{{selectAddress.city}}" name="city" >
+                            <input type="text" id="town" value="{{selectAddress.city}}" name="city" required>
                         </div>
                         <div class="col-lg-6">
                             <label for="email">Email Address<span>*</span></label>
-                            <input type="text" id="email" value="{{selectAddress.emailAddress}}" name="mail" >
+                            <input type="text" id="email" value="{{selectAddress.emailAddress}}" name="mail" required>
                         </div>
                         <div class="col-lg-6">
                             <label for="phone">Phone<span>*</span></label>
-                            <input type="text" id="phone" value="{{selectAddress.phone}}" name="phone" >
+                            <input type="number" id="phone" value="{{selectAddress.phone}}" name="phone" required>
                         </div>
 
                     </div>

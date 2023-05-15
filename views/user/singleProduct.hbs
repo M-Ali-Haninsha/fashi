@@ -71,7 +71,8 @@
                     <div class="row">
                         <div class="col-xs-6" style="margin-left: 13px;">
                         </div>
-                        <div class="col-xs-6"> <button  type="button" class="btn btn-primary shop-button">Add to
+
+                        <div class="col-xs-6"> <button onclick="toAdd('{{singleProductView._id}}')" type="button" class="btn btn-primary shop-button">Add to
                                 Cart</button> </div>
                     </div>
                 </div>
@@ -98,4 +99,17 @@
             $('#image-container img').attr('src', newImageSrc);
         });
     });
+</script>
+<script>
+    function toAdd(id) {
+        $.ajax({
+            url: '/addToCart?id=' + id,
+            method: 'get',
+            success: (response) => {
+                if (response.status) {
+                    swal("Product addedd!", "Please check your cart!", "success");
+                }
+            }
+        })
+    }
 </script>

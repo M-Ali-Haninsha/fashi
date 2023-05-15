@@ -69,7 +69,7 @@ const forgotPassword = (email, userId) => {
     to: email,
     subject: "Your OTP",
     html:
-      '<p>click here"http://localhost:3000/updatePassPage?id=' +
+      '<p>click here"https://fashi.website/updatePassPage?id=' +
       userId +
       '"</p>',
   };

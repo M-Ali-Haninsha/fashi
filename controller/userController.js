@@ -88,14 +88,16 @@ const forgotPassword = (email, userId) => {
 const index =  async function(req, res) {
   userName = req.session.username;
   const banner = await bannercollection.findOne()
+
   const men = await categorycollection.findOne({name:"men"})
-  const catId = men._id
+
+  const catId = men.id
   const menPro = await products.find({category:catId})
   const women = await categorycollection.findOne({name:"women"})
-  const womenId = women._id
+  const womenId = women.id
   const womenPro = await products.find({category:womenId})
   const kid = await categorycollection.findOne({name:"kids"})
-  const kidId = kid._id
+  const kidId = kid.id
   const kidPro = await products.find({category:kidId})
 
   const baseCategory1 = await categorycollection.find().limit(1)

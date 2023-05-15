@@ -103,10 +103,25 @@ const placeOrder = async (req, res) => {
   
             wallet = wallet - total
           
-           
+            const transaction = {
+              transactionDate: new Date(),
+              transactionType: "payment",
+              transactionAmount: total,
+              transactionStatus: "successful",
+              description: "Payment for order",
+              currentBalance: wallet
+            };
   
-            req.session.wallet = wallet
-            await usercollection.updateOne({_id:req.session.userId},{$set:{'wallet.rPrice':req.session.wallet}})
+            // req.session.wallet = wallet
+            await usercollection.updateOne({_id:req.session.userId},{$set:{'wallet.rPrice':wallet}})
+
+
+            console.log("keriiiiii")
+            const test = await usercollection.updateOne({_id:req.session.userId},{$push:{'wallet.walletHistory':transaction}},
+            { writeConcern: { acknowledged: true } });
+
+            console.log(test);
+            console.log("erangiiiiiii")
 
             for (const { productId, quantity } of products) {
               await productcollection.updateOne(
@@ -119,6 +134,17 @@ const placeOrder = async (req, res) => {
             res.json({ status: "cod" });
 
           }else{ 
+            
+            const transaction = {
+              transactionDate: new Date(),
+              transactionType: "payment",
+              transactionAmount: total,
+              transactionStatus: "failed",
+              description: "Insufficient wallet balance",
+              currentBalance: wallet
+            };
+        
+            await usercollection.updateOne({_id:req.session.userId},{$push:{'wallet.walletHistory':transaction}});
         
             res.json({status:false})
           }

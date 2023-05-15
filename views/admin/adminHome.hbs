@@ -158,14 +158,19 @@
                   </div>
                </div> --}}
                <!-- graph -->
-               <div class="row column2 graph margin_bottom_30">
+               <div class="row ">
                   <div class="col-md-8 ">
   <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
                   </div>
                <div class="col-md-4" style="padding: 0;">
                   <div id="piechart"></div>
                </div>
-
+  
+               </div>
+               <div>
+                               <div>
+                  <canvas id="myChart1" style="width:100%;max-width:600px"></canvas>
+               </div>
                </div>
 
                <div class="col-md-12">
@@ -284,10 +289,11 @@ var barColors = ["red", "green","blue","orange","brown"];
 new Chart("myChart", {
   type: "bar",
   data: {
-    labels: ["Men", "Women", "Kids"],
+    labels: ["Processing","Shipped", "Delivered", "return confirmed"],
     datasets: [{
-      backgroundColor: ["red", "green","blue"],
-      data: [{{productsInMenCategoryCount}},{{productsInWomenCategoryCount}} , {{productsInkidCategoryCount}}]
+      backgroundColor: ["yellow", "orange","green", "red"],
+      data: [{{statusProcessingCount}},{{statusShippedCount}} ,{{statusDeliveredCount}} , {{statusreturnConfirmedCount}}]
+   
     }]
   },
   options: {
@@ -295,7 +301,7 @@ new Chart("myChart", {
       yAxes: [{
         ticks: {
           min: 0,
-          max: 15,
+          max: 40,
           stepSize: 5
         }
       }]
@@ -303,11 +309,41 @@ new Chart("myChart", {
     legend: {display: false},
     title: {
       display: true,
-      text: "Category wise sales "
+      text: "Order status Chart "
     }
   }
 });
 </script>
+
+<script>
+var xValues = ["Men", "Women", "Kid"];
+var yValues = [{{productsInMenCategoryCount}},{{productsInWomenCategoryCount}} , {{productsInkidCategoryCount}}];
+var barColors = [
+  "#b91d47",
+  "#00aba9",
+  "#2b5797",
+  "#e8c3b9",
+  "#1e7145"
+];
+
+new Chart("myChart1", {
+  type: "doughnut",
+  data: {
+    labels: xValues,
+    datasets: [{
+      backgroundColor: barColors,
+      data: yValues
+    }]
+  },
+  options: {
+    title: {
+      display: true,
+      text: "Category wise sales"
+    }
+  }
+});
+</script>
+
 <script>
              function downloadPDF() {
             var table = document.getElementById("dtBasicExample");

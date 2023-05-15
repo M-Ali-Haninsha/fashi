@@ -58,7 +58,6 @@ const orderData = deliveredProducts.map((order) => {
   return { ...order._doc, date: mainDate };
 });
 
-console.log(orderData);
 
 
 
@@ -98,7 +97,13 @@ const kids = await ordercollection.find({ status: 'delivered' }, 'products')
   const productsInWomenCategoryCount = productsInWomenCategory.length
 
 
-  res.render("admin/adminHome", { admin: true , orderData,deliveredProducts, codCount, onlineCount,productsInMenCategoryCount,productsInkidCategoryCount,productsInWomenCategoryCount})  
+
+  const statusDeliveredCount = await ordercollection.find({ status: 'delivered' }).count()
+  const statusShippedCount = await ordercollection.find({ status: 'Shipped' }).count()
+  const statusreturnConfirmedCount = await ordercollection.find({ status: 'return confirmed' }).count()
+  const statusProcessingCount = await ordercollection.find({ status: 'processing' }).count()
+
+  res.render("admin/adminHome", { admin: true , orderData,deliveredProducts, statusProcessingCount,statusShippedCount,statusDeliveredCount, statusreturnConfirmedCount , codCount, onlineCount,productsInMenCategoryCount,productsInkidCategoryCount,productsInWomenCategoryCount})  
   }catch(err){
     console.log(err)
   }

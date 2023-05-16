@@ -1,12 +1,21 @@
 const bannercollection = require('../models/banner')
 
 const bannerPage = async(req, res)=>{
+    try{
     const banner =  await bannercollection.findOne()
-    res.render('admin/banner', {admin:true, banner})
+    res.render('admin/banner', {admin:true, banner})        
+    }catch(err){
+        console.log(err)
+    }
+
 }
 
 const addbannerPage = (req, res)=>{
+    try{
     res.render('admin/addbannerPage', {admin:true})
+    }catch(err){
+        console.log(err)
+    }
 }
 
 const addbannerTo = async(req, res)=>{

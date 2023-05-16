@@ -116,12 +116,10 @@ const placeOrder = async (req, res) => {
             await usercollection.updateOne({_id:req.session.userId},{$set:{'wallet.rPrice':wallet}})
 
 
-            console.log("keriiiiii")
             const test = await usercollection.updateOne({_id:req.session.userId},{$push:{walletHistory:transaction}},
             { writeConcern: { acknowledged: true } });
 
             console.log(test);
-            console.log("erangiiiiiii")
 
             for (const { productId, quantity } of products) {
               await productcollection.updateOne(
@@ -295,6 +293,7 @@ const userVerifypayment = async function (req, res) {
 };
 
 const orderManagement = async (req, res) => {
+  try{
   const find = await ordercollection.find();
   const orderData = find.map((order)=>{
     const date = new Date(order.date)
@@ -303,15 +302,22 @@ const orderManagement = async (req, res) => {
     return{...order._doc,date:mainDate,id}
   })
   res.render("admin/order", { admin: true, orderData });
+  }catch(err){
+    console.log(err)
+  }
 };
 
 const adminViewProduct = async(req, res)=>{
+  try{
   const id = req.query.id
   const orderDetails = await ordercollection.find({_id:id})
   const user = orderDetails[0].ordereduser
   const products = orderDetails[0].products
   const userDetails = await usercollection.find({_id:user})
   res.render('admin/adminViewProduct', {admin:true,orderDetails,userDetails,products})
+  }catch(err){
+    console.log(err)
+  }
 }
 
 module.exports = {

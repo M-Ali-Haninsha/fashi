@@ -2,7 +2,7 @@ const category = require("../models/category");
 const products = require("../models/product");
 
 const pageCategory = async (req, res) => {
-  
+  try{
   const categoryData = await category.find().lean();
   if(req.session.msg){
     res.render("admin/category", { admin: true, catInfo: categoryData, msg:"products founded under this category" });
@@ -10,10 +10,17 @@ const pageCategory = async (req, res) => {
     req.session.msg=false
     res.render("admin/category", { admin: true, catInfo: categoryData });
   }
+  }catch(err){
+    console.log(err)
+  }
 };
 
 const addCategory = (req, res) => {
+  try{
   res.render("admin/addCategory", { admin: true });
+  }catch(err){
+    console.log(err)
+  }
 };
 
 const toAddCategory = async (req, res) => {
@@ -45,7 +52,7 @@ const deleteCategory = async (req, res) => {
     res.redirect("/category");
     }
   } catch (error) {
-    console.log(error.message);
+    console.log(error);
   }
 };
 

@@ -86,6 +86,7 @@ const forgotPassword = (email, userId) => {
 
 //home page
 const index =  async function(req, res) {
+  try{
   userName = req.session.username;
   const banner = await bannercollection.findOne()
 
@@ -106,16 +107,27 @@ const index =  async function(req, res) {
   const productData = await products.find().limit(6)
 
   res.render("user/index", { user: true, userName, banner,productData, menPro,womenPro, kidPro ,baseCategory1,baseCategory2,baseCategory3});
+  }catch(err){
+    console.log(err)
+  }
 };
 
 //signup page
 const signup = function (req, res, next) {
+  try{
   res.render("user/userSignup", { user: true });
+  }catch(err){
+    console.log(err)
+  }
 };
 
 //get otp page
 const otpPage = (req, res) => {
+  try{
   res.render("user/otpPage", { user: true });
+  }catch(err){
+    console.log(err)
+  }
 };
 
 //otp page after clicking signup button
@@ -143,9 +155,13 @@ const signupSubmit = async (req, res) => {
 };
 
 const resendOtp = (req, res) => {
+  try{
   otp = otpGen();
   mail(userdata.email, otp);
   res.redirect("/otpPage");
+  }catch(err){
+    console.log(err)
+  }
 };
 
 //otp page proceed
@@ -176,7 +192,11 @@ const proceedOtp = async (req, res) => {
 
 //login page
 const userLogin = (req, res) => {
+  try{
   res.render("user/userLogin", { user: true });
+  }catch(err){
+    console.log(err)
+  }
 };
 
 //login button
@@ -216,13 +236,21 @@ const loginSubmit = async (req, res) => {
 
 //page after clicking forgot password
 const forgotPasswordPage = (req, res) => {
+  try{
   res.render("user/fPassword", { user: true });
+  }catch(err){
+    console.log(err)
+  }
 };
 
 //page to update password
 const updatePassword = (req, res) => {
+  try{
   const id = req.query.id;
   res.render("user/updatePass", { user: true, id });
+  }catch(err){
+    console.log(err)
+  }  
 };
 
 //mail to change password
@@ -252,7 +280,11 @@ const updatePass = async (req, res) => {
 };
 
 const Csuccess = (req, res) => {
+  try{
   res.render("user/success");
+  }catch(err){
+    console.log(err)
+  }
 };
 
 const shop = async (req, res) => {
@@ -318,70 +350,7 @@ const shop = async (req, res) => {
   }
 };
 
-// const shop = async (req, res) => {
-//   try {
-//     const baseCategory = await categorycollection.find()
-   
-//     const userName = req.session.username;
-//     let search =""
 
-//     if(req.query.search){
-//       search= req.query.search
-//     }
-//     const productData = await products.find({$or:[{name:{$regex:".*"+search+".*",$options:"i"}}]}).lean();
-//     res.render("user/shop", { user: true, productData, userName,baseCategory });
-//   } catch (err) {
-//     console.log(err);
-//   }
-// };
-
-// const shopsss = async (req, res) => {
-//   try {
-//     let search = req.query.search ||""
-//     let filter2 = req.query.filter || 'ALL'
-//     let sort = req.query.sort || "Low"
-//     const pageNO = parseInt(req.query.page) || 1;
-//     const perpage = 6;
-//     const skip = perpage * (pageNO - 1)
-//     const catData = await categorycollection.find({status : false})
-//     let cat = []
-//         for(i = 0; i < catData.length ; i++){
-//             cat[i] = catData[i]._id
-//         }
-
-//     let filter
-//     filter2 === "ALL" ? filter = [...cat] : filter = req.query.filter.split(',')
-//     if(filter2 != "ALL") {
-//       for (let i = 0; i< filter.length; i++){
-//         filter[i] = new ObjectId(filter[i])
-//       }
-//     }
-//     req.query.sort == "High" ? sort = -1 : sort = 1
-//     const data = await products.aggregate([
-//       {$match : {name : {$regex : '^'+search, $options : 'i'},category : {$in : filter}}},
-//       {$sort : {price : -1}},
-//       {$skip : skip},
-//       {$limit : perpage}
-//     ])
-    
-//     const productCount = (await products.find(
-//       {name : {$regex : search, $options :'i'}}).where("category").in([...filter])).length
-  
-//   const totalPage = Math.ceil(productCount / perpage)
-
-//     res.render("user/shop", {user:true,data,
-//       data2 : catData,
-//       total : totalPage,
-//       filter : filter,
-//       sort : sort,
-//       search : search
-//       })
-    
-
-//   }catch{
-//     console.log("error")
-//   }
-// };
 
 const singleProduct = async (req, res) => {
   try {
@@ -498,21 +467,29 @@ const profile = async (req, res) => {
 };
 
 const editProfile = async(req, res) => {
+  try{
   const userName = req.session.username;
   const id = req.session.userId
   const useraddress = await blog.find({_id:id })
   const [{address}]=useraddress
 
   res.render("user/editUserProfile", { user: true, userName, address });
+  }catch(err){
+    console.log(err)
+  }
 };
 
 const editaddressfromuser = async(req, res)=>{
+  try{
   const userName = req.session.username;
   const id = req.session.userId
   const user = await blog.findOne({ _id: id, 'address._id': req.query.id });
 const address = user.address.find(a => a._id.toString() === req.query.id);
 
   res.render("user/editaddressfromuser", {user:true, userName, address})
+  }catch(err){
+    console.log(err)
+  }
 }
 
 const editaddressfromuserto = async(req, res)=>{
@@ -797,9 +774,13 @@ const userViewProduct = async(req, res)=>{
 }
 
 const add = (req, res) => {
+  try{
   req.session.bodyadd = req.body;
   console.log(req.body)
   res.redirect("/checkout");
+  }catch(err){
+    console.log(err)
+  }
 };
 
 
@@ -823,9 +804,13 @@ const walletHistory = async(req, res)=>{
 }
 
 const signout = (req, res) => {
+  try{
   req.session.userIn = false;
   req.session.username = false;
   res.redirect("/shop");
+  }catch(err){
+    console.log(err)
+  }
 };
 module.exports = {
   index,

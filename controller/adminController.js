@@ -10,33 +10,6 @@ const { log } = require("handlebars");
 const adminHome = async(req, res, next) => {
   try{
 
-//   const from = req.query.from
-//   const to = req.query.to
-
-//   let query = {status : "delivered" }
-//   if (from && to){
-//     query.date = {
-//       $gte:from,
-//       $lte:to
-//     };
-//   }else if(from){
-//     query.date = {
-//       $gte: from
-//     }
-//   }else if(to){
-//     query.date = {
-//       $lte: to
-//     }
-//   }
-
-
-// const find = await ordercollection.find({status:"delivered"})
-// const orderData = find.map((order)=>{
-//   const date = new Date(order.date)
-//   const mainDate = date.toLocaleString()
-//   return{...order._doc,date:mainDate}
-// })
-// console.log(orderData)
 const from = req.query.from;
 const to = req.query.to;
 
@@ -112,7 +85,12 @@ const kids = await ordercollection.find({ status: 'delivered' }, 'products')
 };
 
 const adminLogin = (req, res) => {
-  res.render("admin/adminLogin");
+  try{
+    res.render("admin/adminLogin");
+  }catch(err){
+    console.log(err)
+  }
+ 
 };
 
 const adminLoginButton = async (req, res) => {
@@ -224,27 +202,6 @@ const cancelOrder = async(req, res)=>{
   }
 }
 
-// const confirmReturn = async(req, res)=>{
-//   try{
-//     const id = req.query.id
-
-//     const order = await ordercollection.findOne({_id:id})
-//     const price = order.grandtotal
-//     const user = order.ordereduser
-//     const method = order.paymentmethod
-
-//     const productData = await products.find({_id:id})
-
-//     if(method=="online"){
-//       await blog.updateOne({_id:user},{$inc:{'wallet.rPrice': price}})
-//     }
-//     await ordercollection.updateOne({_id:id},{$set:{status:"return confirmed"}})
-
-//     res.redirect('/order')
-//   }catch{
-//     console.log("error")
-//   }
-// }
 
 
 
@@ -320,8 +277,13 @@ const confirmReturn = async (req, res) => {
 
 
 const adminLogout = (req, res)=>{
+  try{
   req.session.admin=false
   res.redirect('/adminLogin')
+  }catch(err){
+    console.log(err)
+  }
+
 }
 module.exports = {
   adminHome,

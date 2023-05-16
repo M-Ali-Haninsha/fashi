@@ -3,6 +3,7 @@ const cartcollection = require('../models/cart')
 
 
 const couponPage = async(req,res)=>{
+  try{
     const find = await couponcollection.find()
     const couponlist = find.map((coupon)=>{
       const date = new Date(coupon.expiredate)
@@ -10,10 +11,17 @@ const couponPage = async(req,res)=>{
       return{...coupon._doc,expiredate:mainDate}
     })
     res.render('admin/coupon', {admin:true, couponlist})
+  }catch(err){
+    console.log(err)
+  }
 }
 
 const addCoupon = (req,res)=>{
-    res.render('admin/addcoupon', {admin:true})
+  try{
+  res.render('admin/addcoupon', {admin:true})
+  }catch(err){
+    console.log(err)
+  }
 }
 
 const addCouponTo = async(req, res)=>{
@@ -64,9 +72,13 @@ const editCouponTo = async (req, res) => {
   };
   
   const deleteCoupon = async(req, res)=>{
+    try{
     const dId = req.query.id
     await couponcollection.deleteOne({_id:dId})
     res.redirect('/coupon')
+    }catch(err){
+      console.log(err)
+    }
   }
 
   const applyCoupon = async(req,res)=>{
@@ -110,12 +122,15 @@ const editCouponTo = async (req, res) => {
   }
 
   const cancelApplyCoupon = async(req, res)=>{
-    
+    try{
     await couponcollection.updateOne({couponcode: req.session.code},{$pull:{usedUser:req.session.userId}})
     req.session.code=null
     console.log("hiiiiiiiiiiiiiiiiiiii")
     console.log(couponcollection)
     res.json({status:true})
+    }catch(err){
+      console.log(err)
+    }
   }
 
   const activateCoupon = async (req, res) => {

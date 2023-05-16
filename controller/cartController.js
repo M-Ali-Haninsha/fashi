@@ -3,6 +3,7 @@ const Cart = require("../models/cart");
 const productsDb = require("../models/product");
 
 const cart = async (req, res) => {
+  try{
   userName = req.session.username;
   const userLoggedIn = req.session.userIn;
 
@@ -39,8 +40,9 @@ const cart = async (req, res) => {
 
     res.render('user/cart',{user:true, exists})
   }
-
-
+  }catch(err){
+    console.log(err)
+  }
 };
 
 
@@ -141,6 +143,7 @@ const updateCart = async (req, res) => {
 
 
 const removeFromCart = async (req, res) => {
+  try{
   const user = req.session.userId;
   const productIdToRemove = req.query.id;
   console.log(productIdToRemove);
@@ -150,6 +153,9 @@ const removeFromCart = async (req, res) => {
     { new: true }
   );
   res.redirect("/cart");
+  }catch(err){
+    console.log(err)
+  }
 };
 
 module.exports = {

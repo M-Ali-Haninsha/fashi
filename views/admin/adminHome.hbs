@@ -174,8 +174,8 @@
                </div>
 
                <div class="col-md-12">
-                  <button type="button" class="btn btn-danger btn-sm" style="margin-left: 4px;  margin-bottom: 1rem;" onclick="downloadPDF()">Export to PDF</button>
-                  <form action="" class="d-flex">
+                  <button type="button" class="btn btn-danger btn-sm " style="margin-left: 4px;  margin-bottom: 1rem;" onclick="downloadPDF()">Export to PDF</button>
+                  <form action="" class="d-flex" style="margin-left: 25rem;}">
                      <div>
                         <input type="date" value="{{from}}" name="from">
                      </div>
@@ -270,6 +270,7 @@ function drawChart() {
     ['Task', 'Hours per Day'],
   ['cod', {{codCount}}],
   ['online', {{onlineCount}}],
+  ['wallet', {{walletCount}}]
 ]);
 
   // Optional; add a title and set the width and height of the chart
@@ -289,10 +290,10 @@ var barColors = ["red", "green","blue","orange","brown"];
 new Chart("myChart", {
   type: "bar",
   data: {
-    labels: ["Processing","Shipped", "Delivered", "return confirmed"],
+    labels: ["Processing","Shipped", "Delivered", "return confirmed", "Successful orders"],
     datasets: [{
-      backgroundColor: ["yellow", "orange","green", "red"],
-      data: [{{statusProcessingCount}},{{statusShippedCount}} ,{{statusDeliveredCount}} , {{statusreturnConfirmedCount}}]
+      backgroundColor: ["yellow", "orange","green", "red", "blue"],
+      data: [{{statusProcessingCount}},{{statusShippedCount}} ,{{statusDeliveredCount}} , {{statusreturnConfirmedCount}}, {{statusSuccedfulCount}}]
    
     }]
   },

@@ -63,6 +63,7 @@ const orderData = deliveredProducts.map((order) => {
 
   const codCount = await ordercollection.findOne({paymentmethod:"cod",  status :"delivered"}).count() 
   const onlineCount = await ordercollection.findOne({paymentmethod:"online",  status :"delivered"}).count() 
+  const walletCount = await ordercollection.findOne({paymentmethod:"wallet",  status :"delivered"}).count() 
 
   const men = await ordercollection.find({ status: 'delivered' }, 'products')
   const menProducts = men.flatMap(order => order.products).flat()
@@ -101,9 +102,9 @@ const kids = await ordercollection.find({ status: 'delivered' }, 'products')
   const statusDeliveredCount = await ordercollection.find({ status: 'delivered' }).count()
   const statusShippedCount = await ordercollection.find({ status: 'Shipped' }).count()
   const statusreturnConfirmedCount = await ordercollection.find({ status: 'return confirmed' }).count()
-  const statusProcessingCount = await ordercollection.find({ status: 'processing' }).count()
-
-  res.render("admin/adminHome", { admin: true , orderData,deliveredProducts, statusProcessingCount,statusShippedCount,statusDeliveredCount, statusreturnConfirmedCount , codCount, onlineCount,productsInMenCategoryCount,productsInkidCategoryCount,productsInWomenCategoryCount})  
+  const statusProcessingCount = await ordercollection.find({ status: 'processing' }).count()  
+  const statusSuccedfulCount = await ordercollection.find({ status: 'Order delivered' }).count()
+  res.render("admin/adminHome", { admin: true , orderData,deliveredProducts,statusSuccedfulCount, statusProcessingCount,statusShippedCount,statusDeliveredCount, statusreturnConfirmedCount , codCount, onlineCount, walletCount,productsInMenCategoryCount,productsInkidCategoryCount,productsInWomenCategoryCount})  
   }catch(err){
     console.log(err)
   }
@@ -203,6 +204,10 @@ const delivered = async(req, res)=>{
   try{
     const id = req.query.id
     await ordercollection.updateOne({_id:id},{$set:{status:"delivered"}})
+    setTimeout(async () => {
+      await ordercollection.updateOne({ _id: id }, { $set: { status: 'Order delivered' } });
+    },2 * 24 * 60 * 60 * 1000);
+    // 14 * 24 * 60 * 60 * 1000
     res.redirect('/order')
   }catch{
     console.log("error")

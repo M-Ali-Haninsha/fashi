@@ -141,6 +141,8 @@
             success: (response) => {
                 if (response.status) {
                     swal("Product addedd!", "Please check your cart!", "success");
+                }else{
+                    swal("please Login to your account")
                 }
             }
         })

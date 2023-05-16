@@ -48,48 +48,53 @@ const cart = async (req, res) => {
 const addToCart = async (req, res) => {
   try {
     const user = req.session.userId;
-    const cart = await Cart.findOne({ user: user });
+    if(user){
+      const cart = await Cart.findOne({ user: user });
 
-    const productId = req.query.id; // product object containing productId and quantity
-
-    // check if the product already exists in the cart
-    const existingProduct = await productsDb.findOne({ _id: productId });
-    const pPrice = existingProduct.price;
-
-    if (cart) {
-      // if product exists, update the quantity and price
-      const product = await Cart.findOne({
-        user: user,
-        "products.productId": productId,
-      });
-      if (product) {
-        const exists = await Cart.findOneAndUpdate(
-          { user: user, "products.productId": productId },
-          {
-            $inc: { "products.$.quantity": 1, "products.$.cPrice": pPrice },
-          }
-        );
-      } else {
-        // if product does not exist, add it to the cart
-        await Cart.updateOne(
-          { user: user },
-          {
-            $addToSet: {
-              products: { productId: productId, quantity: 1, cPrice: pPrice },
-            },
-          }
-        );
-      }
-    } else {
-      await Cart.create([
-        {
+      const productId = req.query.id; // product object containing productId and quantity
+  
+      // check if the product already exists in the cart
+      const existingProduct = await productsDb.findOne({ _id: productId });
+      const pPrice = existingProduct.price;
+  
+      if (cart) {
+        // if product exists, update the quantity and price
+        const product = await Cart.findOne({
           user: user,
-          products: { productId: productId, quantity: 1, cPrice: pPrice },
-        },
-      ]);
+          "products.productId": productId,
+        });
+        if (product) {
+          const exists = await Cart.findOneAndUpdate(
+            { user: user, "products.productId": productId },
+            {
+              $inc: { "products.$.quantity": 1, "products.$.cPrice": pPrice },
+            }
+          );
+        } else {
+          // if product does not exist, add it to the cart
+          await Cart.updateOne(
+            { user: user },
+            {
+              $addToSet: {
+                products: { productId: productId, quantity: 1, cPrice: pPrice },
+              },
+            }
+          );
+        }
+      } else {
+        await Cart.create([
+          {
+            user: user,
+            products: { productId: productId, quantity: 1, cPrice: pPrice },
+          },
+        ]);
+      }
+  
+      res.json({ status: true });
+    }else{
+      res.json({status: false})
     }
 
-    res.json({ status: true });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Server error" });

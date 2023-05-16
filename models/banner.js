@@ -13,6 +13,9 @@ const bannerSchema = new mongoose.Schema({
     },
     mainP:{
         type:String
+    },
+    direction:{
+        type:String
     }
 })
 const banner=mongoose.model('banner', bannerSchema);

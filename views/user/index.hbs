@@ -17,7 +17,7 @@
                         <span>{{banner.span1}}</span>
                         <h1>{{banner.mainH1}}</h1>
                         <p>{{banner.mainP}}</p>
-                        <a href="/shop" class="primary-btn">Shop Now</a>
+                        <a href="/{{banner.direction}}" class="primary-btn">Shop Now</a>
                     </div>
                 </div>
                 {{!-- <div class="off-card">
@@ -54,7 +54,7 @@
                     <div class="single-banner">
                         <img src="/images/img/banner-1.jpg" alt="">
                         <div class="inner-text">
-                            {{#each baseCategory1}}
+                            {{#each baseCategory3}}
                             <a href="/shop?categoryId={{_id}}"><h4>{{name}}</h4></a>
                             {{/each}}
                         </div>
@@ -74,7 +74,7 @@
                     <div class="single-banner">
                         <img src="/images/img/banner-3.jpg" alt="">
                         <div class="inner-text">
-                            {{#each baseCategory3}}
+                            {{#each baseCategory1}}
                             <a href="/shop?categoryId={{_id}}"><h4>{{name}}</h4></a>
                             {{/each}}
                         </div>
@@ -217,7 +217,7 @@
                 <div class="col-lg-3 offset-lg-1">
                     <div class="product-large set-bg m-large" data-setbg="/images/img/products/man-large.jpg">
                         <h2>Men’s</h2>
-                         {{#each baseCategory1}}
+                         {{#each baseCategory3}}
                             <a href="/shop?categoryId={{_id}}">Discover More</a>
                             {{/each}}
                     </div>
@@ -233,7 +233,7 @@
                 <div class="col-lg-3">
                     <div class="product-large set-bg" data-setbg="/images/img/kidbanner2.jpg">
                         <h2>Kid’s</h2>
-                         {{#each baseCategory3}}
+                         {{#each baseCategory1}}
                             <a href="/shop?categoryId={{_id}}">Discover More</a>
                             {{/each}}
                     </div>
@@ -278,121 +278,42 @@
     </section>
 
     <!-- Instagram Section Begin -->
+
     <div class="instagram-photo">
-        <div class="insta-item set-bg" data-setbg="/images/img/insta-1.jpg">
+        {{#each productData}}
+        <div class="insta-item set-bg" data-setbg="http://res.cloudinary.com/df3qijj4a/image/upload/v1683971241/{{image.[0]}}">
             <div class="inside-text">
-                <i class="ti-instagram"></i>
-                <h5><a href="#">colorlib_Collection</a></h5>
             </div>
         </div>
-        <div class="insta-item set-bg" data-setbg="/images/img/insta-2.jpg">
+        {{/each}}
+        {{!-- <div class="insta-item set-bg" data-setbg="/images/img/insta-2.jpg">
             <div class="inside-text">
-                <i class="ti-instagram"></i>
-                <h5><a href="#">colorlib_Collection</a></h5>
             </div>
         </div>
         <div class="insta-item set-bg" data-setbg="/images/img/insta-3.jpg">
             <div class="inside-text">
-                <i class="ti-instagram"></i>
-                <h5><a href="#">colorlib_Collection</a></h5>
             </div>
         </div>
         <div class="insta-item set-bg" data-setbg="/images/img/insta-4.jpg">
             <div class="inside-text">
-                <i class="ti-instagram"></i>
-                <h5><a href="#">colorlib_Collection</a></h5>
             </div>
         </div>
         <div class="insta-item set-bg" data-setbg="/images/img/insta-5.jpg">
             <div class="inside-text">
-                <i class="ti-instagram"></i>
-                <h5><a href="#">colorlib_Collection</a></h5>
             </div>
         </div>
         <div class="insta-item set-bg" data-setbg="/images/img/insta-6.jpg">
-            <div class="inside-text">
-                <i class="ti-instagram"></i>
-                <h5><a href="#">colorlib_Collection</a></h5>
+            <div class="inside-text">             
             </div>
-        </div>
+        </div> --}}
     </div>
     <!-- Instagram Section End -->
 
     <!-- Latest Blog Section Begin -->
     <section class="latest-blog spad">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="section-title">
-                        <h2>From The Blog</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-4 col-md-6">
-                    <div class="single-latest-blog">
-                        <img src="/images/img/latest-1.jpg" alt="">
-                        <div class="latest-text">
-                            <div class="tag-list">
-                                <div class="tag-item">
-                                    <i class="fa fa-calendar-o"></i>
-                                    May 4,2019
-                                </div>
-                                <div class="tag-item">
-                                    <i class="fa fa-comment-o"></i>
-                                    5
-                                </div>
-                            </div>
-                            <a href="#">
-                                <h4>The Best Street Style From London Fashion Week</h4>
-                            </a>
-                            <p>Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam quaerat </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="single-latest-blog">
-                        <img src="/images/img/latest-2.jpg" alt="">
-                        <div class="latest-text">
-                            <div class="tag-list">
-                                <div class="tag-item">
-                                    <i class="fa fa-calendar-o"></i>
-                                    May 4,2019
-                                </div>
-                                <div class="tag-item">
-                                    <i class="fa fa-comment-o"></i>
-                                    5
-                                </div>
-                            </div>
-                            <a href="#">
-                                <h4>Vogue's Ultimate Guide To Autumn/Winter 2019 Shoes</h4>
-                            </a>
-                            <p>Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam quaerat </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="single-latest-blog">
-                        <img src="/images/img/latest-3.jpg" alt="">
-                        <div class="latest-text">
-                            <div class="tag-list">
-                                <div class="tag-item">
-                                    <i class="fa fa-calendar-o"></i>
-                                    May 4,2019
-                                </div>
-                                <div class="tag-item">
-                                    <i class="fa fa-comment-o"></i>
-                                    5
-                                </div>
-                            </div>
-                            <a href="#">
-                                <h4>How To Brighten Your Wardrobe With A Dash Of Lime</h4>
-                            </a>
-                            <p>Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam quaerat </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
+
             <div class="benefit-items">
                 <div class="row">
                     <div class="col-lg-4">
@@ -402,7 +323,7 @@
                             </div>
                             <div class="sb-text">
                                 <h6>Free Shipping</h6>
-                                <p>For all order over 99$</p>
+                                <p>For all deliveries</p>
                             </div>
                         </div>
                     </div>

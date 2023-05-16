@@ -103,8 +103,9 @@ const index =  async function(req, res) {
   const baseCategory1 = await categorycollection.find().limit(1)
   const baseCategory2 = await categorycollection.find().skip(1).limit(1)
   const baseCategory3 = await categorycollection.find().skip(2).limit(1)
+  const productData = await products.find().limit(6)
 
-  res.render("user/index", { user: true, userName, banner, menPro,womenPro, kidPro ,baseCategory1,baseCategory2,baseCategory3});
+  res.render("user/index", { user: true, userName, banner,productData, menPro,womenPro, kidPro ,baseCategory1,baseCategory2,baseCategory3});
 };
 
 //signup page

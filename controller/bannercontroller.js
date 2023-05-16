@@ -12,6 +12,7 @@ const addbannerPage = (req, res)=>{
 const addbannerTo = async(req, res)=>{
     try{
 const img = req.files.map((image) => image.filename);
+
     const banner = await bannercollection.insertMany([{mainImageBanner:img, span1:req.body.span, mainH1:req.body.mainBannerMainHeading, mainP:req.body.paragraph}])
     console.log(banner)
     res.redirect('/bannerPage')
@@ -37,8 +38,9 @@ const editbannerto = async(req, res)=>{
         let updatedFields = {
             span1: req.body.subheading,
             mainH1: req.body.MainH,
-            mainP: req.body.para
-          };
+            mainP: req.body.para,
+            direction: req.body.dir
+         };
           if (req.files && req.files.length > 0) {
             updatedFields.image = req.files.map((image) => image.filename);
           }
@@ -46,6 +48,7 @@ const editbannerto = async(req, res)=>{
             {},
             { $set: updatedFields }
           );
+   
           res.redirect('/editbanner')
     }catch{
         console.log("error")

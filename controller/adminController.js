@@ -31,6 +31,12 @@ const orderData = deliveredProducts.map((order) => {
   return { ...order._doc, date: mainDate };
 });
 
+const totalCollection = deliveredProducts.reduce((total, value)=>{
+  return total+value.grandtotal
+},0)
+
+
+
 
 
 
@@ -77,7 +83,8 @@ const kids = await ordercollection.find({ status: 'delivered' }, 'products')
   const statusreturnConfirmedCount = await ordercollection.find({ status: 'return confirmed' }).count()
   const statusProcessingCount = await ordercollection.find({ status: 'processing' }).count()  
   const statusSuccedfulCount = await ordercollection.find({ status: 'Order delivered' }).count()
-  res.render("admin/adminHome", { admin: true , orderData,deliveredProducts,statusSuccedfulCount, statusProcessingCount,statusShippedCount,statusDeliveredCount, statusreturnConfirmedCount , codCount, onlineCount, walletCount,productsInMenCategoryCount,productsInkidCategoryCount,productsInWomenCategoryCount})  
+  const usercount = await blog.find().count()
+  res.render("admin/adminHome", { admin: true , orderData,totalCollection,usercount,deliveredProducts,statusSuccedfulCount, statusProcessingCount,statusShippedCount,statusDeliveredCount, statusreturnConfirmedCount , codCount, onlineCount, walletCount,productsInMenCategoryCount,productsInkidCategoryCount,productsInWomenCategoryCount})  
   }catch(err){
     console.log(err)
   }

@@ -27,57 +27,30 @@
                         </div>
                         <div class="counter_no">
                            <div>
-                              <p class="total_no">2500</p>
+                              <p class="total_no">{{usercount}}</p>
                               <p class="head_couter">Welcome</p>
                            </div>
                         </div>
                      </div>
                   </div>
+
                   <div class="col-md-3 ">
                      <div class="full counter_section margin_bottom_30">
                         <div class="couter_icon">
                            <div>
-                              <i class="fa fa-clock-o blue1_color"></i>
+                              <i class="fa fa-inr green_color"></i>
+
                            </div>
                         </div>
                         <div class="counter_no">
                            <div>
-                              <p class="total_no">123.50</p>
-                              <p class="head_couter">Average Time</p>
+                              <p class="total_no">{{totalCollection}}</p>
+                              <p class="head_couter">Total sale</p>
                            </div>
                         </div>
                      </div>
                   </div>
-                  <div class="col-md-3 ">
-                     <div class="full counter_section margin_bottom_30">
-                        <div class="couter_icon">
-                           <div>
-                              <i class="fa fa-cloud-download green_color"></i>
-                           </div>
-                        </div>
-                        <div class="counter_no">
-                           <div>
-                              <p class="total_no">1,805</p>
-                              <p class="head_couter">Collections</p>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="col-md-3 ">
-                     <div class="full counter_section margin_bottom_30">
-                        <div class="couter_icon">
-                           <div>
-                              <i class="fa fa-comments-o red_color"></i>
-                           </div>
-                        </div>
-                        <div class="counter_no">
-                           <div>
-                              <p class="total_no">54</p>
-                              <p class="head_couter">Comments</p>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
+
                </div>
                {{!-- <div class="row column1 social_media_section">
                   <div class="col-md-6 col-lg-3">
@@ -173,6 +146,7 @@
                </div>
                </div>
 
+   <hr>
                <div class="col-md-12">
                   <button type="button" class="btn btn-danger btn-sm " style="margin-left: 4px;  margin-bottom: 1rem;" onclick="downloadPDF()">Export to PDF</button>
                   <form action="" class="d-flex" style="margin-left: 25rem;}">

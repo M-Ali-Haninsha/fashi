@@ -20,7 +20,7 @@
   <div class="form">
     <form class="login-form" action="/editCategoryTo" method="post">
         <p>Enter the name to edit</p>
-    <input type="text" id="" placeholder="category name" name="name" value="{{cCat.name}}">
+    <input type="text" id="" placeholder="category name" name="name" value="{{cCat.name}}" required>
     <input type="hidden" id="" placeholder="category name" name="id" value="{{cCat._id}}">
         <div>
         <p class="text-danger">{{err1}}</p>

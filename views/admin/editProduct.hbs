@@ -6,7 +6,7 @@
   <div class="form-group">
     
     <label for="name">Product Name:</label>
-    <input type="text" class="form-control" id="pName" name="pName" value={{name}}>
+    <input type="text" class="form-control" id="pName" name="pName" value={{name}} required>
   </div>
   <div class="form-group">
   <label for="image">Product Image:</label>
@@ -39,16 +39,16 @@
   </div>
   <div class="form-group">
     <label for="quantity">Product Quantity:</label>
-    <input type="text" class="form-control" id="pQuantity" name="pQuantity" value={{quantity}}>
+    <input type="text" class="form-control" id="pQuantity" name="pQuantity" value={{quantity}} required>
   </div>
     <div class="form-group">
     <label for="price">Product Price:</label>
-    <input type="text" class="form-control" id="pPrice" name="pPrice" value="{{price}}">
+    <input type="text" class="form-control" id="pPrice" name="pPrice" value="{{price}}" required>
   </div>
   <div>
     <div class="form-group">
     <label for="price">Description:</label>
-    <input type="text" class="form-control" id="description" name="description" value="{{description}}">
+    <input type="text" class="form-control" id="description" name="description" value="{{description}}" required>
   </div>
   <div>
     {{/with}}
@@ -61,7 +61,7 @@
 </select>
 </div>
 <div class="form-group mb-3 ">
-<input style="color: black !important;" id="id-field" type="hidden" class="form-control" placeholder="Password" name="id" value="{{editUser._id}}">
+<input style="color: black !important;" id="id-field" type="hidden" class="form-control" placeholder="Password" name="id" value="{{editUser._id}}" required>
 </div>
   <input class="btn btn-success" type="submit" value="Edit Product">
 </form>

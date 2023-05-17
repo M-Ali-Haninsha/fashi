@@ -1,109 +1,159 @@
-<button type="button" class="btn btn-danger btn-sm mt-4 ml-4" style="margin-left: 4px;" onclick="downloadPDF()">Export to PDF</button>
+
 
 
 <section class="confirmation_part section_padding">
-    <div class="container" id="datatable">
-      <div class="row" style="justify-content: space-evenly;">
-        <div class="col-lg-12 success">
-          <div class="confirmation_tittle">
-            <span class="text-success" style="font-size: 1.4rem;">Thank you. Your order has been received.</span>
-          </div>
-        </div>
-      {{#with orderDetails}}
-        <div class="col-lg-5 col-lx-4 info" style="border: solid;
-    background-color: white;">
-          <div class="single_confirmation_details">
-            <h4>order info</h4>
-            <ul>
-              <li>
-                <p class="line1">order id</p><span>: {{_id}}</span>
-              </li>
-              <li class="line2">
-                <p class="line1">date</p><span>: {{date}}</span>
-              </li>
-              <li class="line2">
-                <p class="line1">total</p><span>: {{grandtotal}}</span>
-              </li>
-              <li class="line2">
-                <p class="line1">payment methord</p><span>: {{paymentmethod}}</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-lg-5 col-lx-4 info" style="border: solid;
-    background-color: white;">
-          <div class="single_confirmation_details">
-            <h4>Billing Address</h4>
-            <ul>
-              <li>
-                <p class="line1">Address</p><span>: {{deliveryaddress.address}}</span>
-              </li>
-              <li class="line2">
-                <p class="line1">District</p><span>: {{deliveryaddress.district}}</span>
-              </li>
-              <li class="line2">
-                <p class="line1">city/town</p><span>: {{deliveryaddress.state}}</span>
-              </li>
-              <li class="line2">
-                <p class="line1"> country</p><span>: {{deliveryaddress.country}}</span>
-              </li>
-              <li class="line2">
-                <p class="line1">pincode</p><span>: {{deliveryaddress.pincode}}</span>
-              </li>
-            </ul>
-          </div>
-        </div>
 
-      </div>
-      <div class="row">
-        <div class="col-lg-6 OrderDetails mb-4">
-          <div class="order_details_iner" style="    border: 10px solid grey;
-    background: white;">
-            <h3>Order Details</h3>
-            <table class="table table-borderless">
-              <thead>
-                <tr>
-                  <th scope="col" colspan="2">Product</th>
-                  <th scope="col">Quantity</th>
-                  <th scope="col">Total</th>
-                </tr>
-              </thead>
-              <tbody>
-              {{#each products}}
-                <tr>
-                  <th colspan="2"><span>{{name}}</span></th>
-                  <th>{{quantity}}</th>
-                  <th> <span>₹{{subPrice}}</span></th>
-                </tr>
-          {{/each}}
-                <tr>
-                  <th colspan="3">shipping</th>
-                  {{!-- <th><span>flat rate: $50.00</span></th> --}}
-                </tr>
-              </tbody>
-              <tfoot>
-                <tr>
-                  <th scope="col" colspan="3">Total</th>
-                  <th><span>₹{{grandtotal}}</span></th>
-                </tr>
-              </tfoot>
-            </table>
-          </div>
+
+
+<style>
+    body {
+       
+        margin: 0;
+        padding: 0;
+    }
+
+    h1 {
+        color: #3fb90b;
+        font-family: "Nunito Sans", "Helvetica Neue", sans-serif;
+        font-weight: 900;
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+
+    p {
+        color: #404F5E;
+        font-family: "Nunito Sans", "Helvetica Neue", sans-serif;
+        font-size: 20px;
+        margin: 0;
+    }
+
+    i {
+        color: #3fb90b;
+      
+        font-weight: bold;
+    }
+
+    .card {
+ 
+        display: inline-block;
+        margin: 0 auto;
+    }
+</style>
+
+<div class="d-flex justify-content-center align-item-center w-100">
+    <div class=" col-md-10 d-flex justify-content-center align-item-center">
+        <div class="card  text-center mt-5 p-1 " style="border: none;">
+
+            <h1>Order Placed Successfully</h1>
         </div>
-        {{/with}}
-      </div>
     </div>
-  </section>
+</div>
+
+
+<div class="container  mb-5">
+
+
+    <div class="d-flex justify-content-center row " id='printMe'>
+        <div class="col-md-10">
+            <div class="receipt bg-white p-3">
+                <h2 style="font-weight: 900;">Fashi.</h2>
+                <h4 class="mt-2 mb-3">Your order is confirmed!</h4>
+                  {{#with orderDetails}}
+                <h6 class="name">Hello {{deliveryaddress.firstname}},</h6><span class="fs-12 text-black-50">your order has been confirmed
+                    and
+                    will be shipped in two days</span>
+                <hr>
+                <div class="d-flex flex-row justify-content-between  order-details" >
+                    <div><span class="d-block fs-12">Order date</span><span class="font-weight-bold">{{date}}</span></div>
+                    <div><span class="d-block fs-12">Order number</span><span
+                            class="font-weight-bold">{{_id}}</span>
+                    </div>
+                    <div><span class="d-block fs-12">Payment method</span><span
+                            class="font-weight-bold">{{paymentmethod}}
+                        </span></div>
+                    <div><span class="d-block fs-12">Shipping Address</span><span
+                            class="font-weight-bold ">{{deliveryaddress.address}}</span><br>
+                        <span class="font-weight-bold ">{{deliveryaddress.district}},</span>
+                        <span class="font-weight-bold ">{{deliveryaddress.state}}</span><br>
+                        <span class="font-weight-bold ">{{deliveryaddress.country}}</span><br>
+                        
+                        <span class="font-weight-bold ">{{deliveryaddress.pincode}}</span>
+                    </div>
+                </div>
+                <hr>
+                {{#each products}}
+                <div class="d-flex justify-content-between align-items-center product-details">
+                    <div class="d-flex flex-row product-name-image"><img class="rounded"
+                            src="http://res.cloudinary.com/df3qijj4a/image/upload/v1683971241/{{image.[0]}}" width="80">
+                        <div class="d-flex flex-column justify-content-between ml-2">
+                            <div><span class="d-block font-weight-bold p-name">{{name}}</span></div><span class="fs-12">Qty:
+                                {{quantity}}pcs</span>
+                        </div>
+                    </div>
+                    <div class="product-price">
+                        <h5>₹{{subPrice}}</h5>
+                    </div>
+                </div>
+                 <hr>
+                
+                
+               
+                <div class="mt-5 amount row">
+                    <div class="d-flex justify-content-center col-md-6"></div>
+                    <div class="col-md-6">
+                        <div class="billing">
+                            {{!-- <div class="d-flex justify-content-between"><span>Subtotal</span><span
+                                    class="font-weight-bold">$120</span></div> --}}
+                            <div class="d-flex justify-content-between mt-2"><span>Shipping fee</span><span
+                                    class="font-weight-bold">₹0</span></div>
+                            <div class="d-flex justify-content-between mt-2"><span>Price</span><span
+                                    class="font-weight-bold">₹{{subPrice}}</span></div>
+                 {{/each}}
+                            <hr>
+                            <div class="d-flex justify-content-between mt-1"><span
+                                    class="font-weight-bold ">Total</span><span
+                                    class="font-weight-bold text-dark">₹{{grandtotal}}</span></div>
+                        </div>
+                    </div>
+{{/with}}
+                {{!-- <span class="d-block">Expected delivery date</span><span class="font-weight-bold text-success">12
+                    March 2020</span> --}}
+
+                </div><span class="d-block mt-3 text-black-50 fs-15">We will be sending a shipping
+                    confirmation email when the item is shipped!</span>
+                <hr>
+                <div class="d-flex justify-content-between align-items-center footer">
+                    <div class="thanks"><span class="d-block font-weight-bold">Thanks for shopping</span><span>Fashi.
+                            team</span></div>
+                    <div class="d-flex flex-column justify-content-end align-items-end"><span
+                            class="d-block font-weight-bold">Need Help?</span><span>Call - 8891207040</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class=" d-flex justify-content-center">
+    <a href="/shop"> <button class="btn border-dark"
+            style=" background-color: black; color: white; margin-right: 5px;">continue shoping</button></a>
+     <button class="btn btn-dark" onclick="exportPdf()">Export PDF</button>
+
+</div>
+</div>
+ </section>
 
 <script>
-             function downloadPDF() {
-            var table = document.getElementById("datatable");
-            var newWin = window.open('', 'Print-Window');
-            newWin.document.open();
-            newWin.document.write('<html><body onload="window.print()">' + table.outerHTML + '</html>');
-            newWin.document.close();
-            setTimeout(function () { newWin.close(); }, 10);
-		      }
-        </script>
-          
+    function exportPdf() {
+        const printContents = document.getElementById("printMe").innerHTML;
+        const originalContents = document.body.innerHTML;
+
+        document.body.innerHTML = printContents;
+        window.print();
+
+        document.body.innerHTML = originalContents;
+    }
+</script>
+
+
 

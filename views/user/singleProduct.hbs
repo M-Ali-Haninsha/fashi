@@ -50,8 +50,8 @@
                     <div class="product_description">
                         <nav>
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item"><a href="#">Products</a></li>
+                                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                                <li class="breadcrumb-item"><a href="/shop">Products</a></li>
                                 <li class="breadcrumb-item active">Accessories</li>
                             </ol>
                         </nav>
@@ -108,6 +108,8 @@
             success: (response) => {
                 if (response.status) {
                     swal("Product addedd!", "Please check your cart!", "success");
+                }else{
+                    swal("please Login to your account")
                 }
             }
         })

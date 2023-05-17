@@ -295,7 +295,7 @@ const shop = async (req, res) => {
     if(req.query.page){
       page = req.query.page
     }
-    const limit = 8
+    const limit = 6
 
     const userName = req.session.username;
     var search = req.query.search || ''

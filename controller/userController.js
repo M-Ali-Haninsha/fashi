@@ -91,6 +91,14 @@ const index =  async function(req, res) {
   const banner = await bannercollection.findOne()
 
   const men = await categorycollection.findOne({name:"men"})
+  if(req.session.userId){
+  const countCart=await cart.find({user:req.session.userId})
+ const productscart= countCart[0].products
+ var cartCount = productscart.length
+  
+ 
+  }
+
 
   const catId = men.id
   const menPro = await products.find({category:catId})
@@ -106,7 +114,7 @@ const index =  async function(req, res) {
   const baseCategory3 = await categorycollection.find().skip(2).limit(1)
   const productData = await products.find().limit(6)
 
-  res.render("user/index", { user: true, userName, banner,productData, menPro,womenPro, kidPro ,baseCategory1,baseCategory2,baseCategory3});
+  res.render("user/index", { user: true, userName, banner,productData, menPro,womenPro, kidPro ,baseCategory1,baseCategory2,baseCategory3,cartCount});
   }catch(err){
     console.log(err)
   }

@@ -21,4 +21,4 @@ function timer(remaining) {
   <span class="font-weight-bold text-color cursor" onclick="timer(60)">Resend
   </span>`;
 }
-timer(10);
+timer(60);

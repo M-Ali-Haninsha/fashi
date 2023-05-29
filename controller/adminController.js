@@ -110,7 +110,7 @@ const adminLoginButton = async (req, res) => {
     req.session.admin=true
     res.render('admin/adminHome', {admin:true})
   }else{
-    res.render('admin/adminLogin', { error:"wrong credentials"})
+    res.render('admin/adminLogin', { error:"wrong credential"})
   }
   }catch(err){
     console.log(err)

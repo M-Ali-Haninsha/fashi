@@ -29,7 +29,6 @@ const addProductTo = async (req, res) => {
        img.push(result.public_id)
 
       }
-    // const img = req.files.map((image) => image.filename);
     const categoryId = await category.findOne({ name: req.body.category });
     const product = new products({
       name: req.body.pName,

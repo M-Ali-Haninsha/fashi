@@ -18,7 +18,7 @@ const couponPage = async(req,res)=>{
 
 const addCoupon = (req,res)=>{
   try{
-  res.render('admin/addcoupon', {admin:true})
+  res.render('admin/addCoupon', {admin:true})
   }catch(err){
     console.log(err)
   }

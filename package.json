@@ -8,6 +8,7 @@
   "dependencies": {
     "bcrypt": "^5.1.0",
     "cloudinary": "^1.36.4",
+    "connect-redis": "^7.1.0",
     "cookie-parser": "~1.4.4",
     "crypto": "^1.0.1",
     "debug": "~2.6.9",
@@ -18,14 +19,12 @@
     "handlebars": "^4.7.7",
     "hbs": "^4.2.0",
     "http-errors": "~1.6.3",
+    "latest-version": "^7.0.0",
     "mongoose": "^7.0.3",
     "morgan": "~1.9.1",
     "multer": "^1.4.5-lts.1",
     "nodemailer": "^6.9.1",
     "otp-generator": "^4.0.1",
     "razorpay": "^2.8.6"
-  },
-  "engines": {
-    "node": ">=18.14.2 <19.0.0"
   }
 }

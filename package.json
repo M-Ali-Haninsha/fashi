@@ -24,5 +24,8 @@
     "nodemailer": "^6.9.1",
     "otp-generator": "^4.0.1",
     "razorpay": "^2.8.6"
+  },
+  "engines": {
+    "node": ">=18.14.2 <19.0.0"
   }
 }

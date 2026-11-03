@@ -34,12 +34,12 @@
                         <li data-image="{{img singleProductView.image.[0]}}"
                             style="padding: 0;"><img src="{{img singleProductView.image.[0]}}"
                                 style="height: 100%; width: 80%;"></li>
-                        <li data-image="{{img singleProductView.image.[1]}}"
+                        {{#if singleProductView.image.[1]}}<li data-image="{{img singleProductView.image.[1]}}"
                             style="padding: 0;"><img src="{{img singleProductView.image.[1]}}"
-                                style="height: 100%; width: 80%;"></li>
-                        <li data-image="{{img singleProductView.image.[2]}}"
+                                style="height: 100%; width: 80%;"></li>{{/if}}
+                        {{#if singleProductView.image.[2]}}<li data-image="{{img singleProductView.image.[2]}}"
                             style="padding: 0;"><img src="{{img singleProductView.image.[2]}}"
-                                style="height: 100%; width: 80%;"></li>
+                                style="height: 100%; width: 80%;"></li>{{/if}}
                     </ul>
                 </div>
                 <div class="col-lg-4 order-lg-2 order-1">
@@ -72,8 +72,8 @@
                         <div class="col-xs-6" style="margin-left: 13px;">
                         </div>
 
-                        <div class="col-xs-6"> <button onclick="toAdd('{{singleProductView._id}}')" type="button" class="btn btn-primary shop-button">Add to
-                                Cart</button> </div>
+                        <div class="col-xs-6"> {{#if singleProductView.quantity}}<button onclick="toAdd('{{singleProductView._id}}')" type="button" class="btn btn-primary shop-button">Add to
+                                Cart</button>{{else}}<button type="button" class="btn btn-secondary shop-button" disabled>Out of stock</button>{{/if}} </div>
                     </div>
                 </div>
             </div>
@@ -106,7 +106,10 @@
             url: '/addToCart',
             method: 'post',
             data: { id },
-            success: () => swal("Product added!", "Please check your cart!", "success"),
+            success: (response) => {
+                setCartCount(response.count)
+                swal("Product added!", "Please check your cart!", "success")
+            },
             error: (xhr) => {
                 if (xhr.status === 401) {
                     swal("Please log in to your account").then(() => { location.href = '/userLogin' })

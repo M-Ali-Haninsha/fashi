@@ -4331,3 +4331,17 @@ ol {
 .owl-carousel .owl-dots.disabled {
   display: none;
 }
+
+/* Cart count on the header icon: widen for two-digit counts. */
+.inner-header .nav-right li.cart-icon a span#cart-count {
+  width: auto;
+  min-width: 15px;
+  padding: 0 4px;
+  border-radius: 8px;
+}
+
+/* Cart page: quantity buttons that cannot be used. */
+.cart-qty-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}

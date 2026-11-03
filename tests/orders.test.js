@@ -32,6 +32,36 @@ describe("cart, checkout and orders", () => {
     assert.equal(res.body.status, "out");
   });
 
+  it("shows the number of items on the header's cart icon", async () => {
+    const before = await shopper.get("/shop");
+    assert.match(before.text, /<span id="cart-count" style="display: none;">0<\/span>/);
+
+    const res = await addToCart();
+    assert.equal(res.body.count, 1);
+    await addToCart();
+    const after = await shopper.get("/shop");
+    assert.match(after.text, /<span id="cart-count">2<\/span>/);
+  });
+
+  it("disables + on the cart page once the quantity reaches the stock", async () => {
+    for (let i = 0; i < 3; i++) await addToCart();
+    const page = await shopper.get("/cart");
+    assert.match(page.text, /data-plus="[a-f0-9]+" data-stock="3" onclick="[^"]+" disabled/);
+    assert.match(page.text, /Only 3 in stock/);
+
+    const res = await shopper.ajax("put", "/updateCart", { id: product.id, quantity: 2 });
+    assert.equal(res.body.stock, 3);
+    assert.equal(res.body.count, 2);
+  });
+
+  it("shows Out of stock instead of an add button when nothing is left", async () => {
+    const soldOut = await h.createProduct({ name: "Sold Out Scarf", quantity: 0 });
+    const page = await shopper.get(`/singleView?id=${soldOut.id}`);
+    assert.match(page.text, /Out of stock/);
+    assert.doesNotMatch(page.text, /onclick="toAdd\(/);
+    assert.equal((await addToCart(soldOut.id)).status, 409);
+  });
+
   it("places a cash-on-delivery order, takes it out of stock and empties the cart", async () => {
     await addToCart();
     await addToCart();

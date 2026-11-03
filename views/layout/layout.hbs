@@ -15,6 +15,13 @@
         if (window.jQuery) {
             jQuery.ajaxSetup({ headers: { 'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content } });
         }
+        // Updates the number on the header's cart icon (hidden when the cart is empty).
+        function setCartCount(count) {
+            var badge = document.getElementById('cart-count');
+            if (!badge || typeof count !== 'number') return;
+            badge.textContent = count > 99 ? '99+' : count;
+            badge.style.display = count > 0 ? '' : 'none';
+        }
     </script>
 </head>
 <body>

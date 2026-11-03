@@ -94,7 +94,7 @@
                                     <div class="sale pp-sale">Sale</div>
                                
                                     <ul>
-                                        <li><button onclick="toAdd('{{_id}}')"><i style="height: 1rem; width: 1rem;}" class="fa-sharp fa-solid fa-bag-shopping"></i></button></li>
+                                        {{#if quantity}}<li><button onclick="toAdd('{{_id}}')" aria-label="Add to cart"><i style="height: 1rem; width: 1rem;" class="fa-sharp fa-solid fa-bag-shopping"></i></button></li>{{else}}<li class="quick-view" style="background:#6c757d;color:#fff;cursor:not-allowed;">Out of stock</li>{{/if}}
                                         <li class="quick-view"><a href="/singleView?id={{_id}}">+ Quick View</a></li>
                                     </ul>
                                 </div>
@@ -139,7 +139,10 @@
             url: '/addToCart',
             method: 'post',
             data: { id },
-            success: () => swal("Product added!", "Please check your cart!", "success"),
+            success: (response) => {
+                setCartCount(response.count)
+                swal("Product added!", "Please check your cart!", "success")
+            },
             error: (xhr) => {
                 if (xhr.status === 401) {
                     swal("Please log in to your account").then(() => { location.href = '/userLogin' })

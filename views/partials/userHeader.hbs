@@ -22,8 +22,9 @@
                 <div class="col-lg-3 text-right col-md-3">
                     <ul class="nav-right">
                         <li class="cart-icon">
-                            <a href="/cart">
+                            <a href="/cart" aria-label="Cart">
                                 <i class="fa-solid fa-cart-shopping" style="color: #1c2f4f;"></i>
+                                <span id="cart-count"{{#unless cartCount}} style="display: none;"{{/unless}}>{{cartCount}}</span>
                             </a>
                         </li>
                         <li>  {{#if userName}}

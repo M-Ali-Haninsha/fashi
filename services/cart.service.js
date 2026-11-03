@@ -55,7 +55,7 @@ async function add(userId, productId) {
 async function setQuantity(userId, productId, quantity) {
   if (!Number.isInteger(quantity) || quantity < 1) throw badRequest("Invalid quantity");
   const product = await findSellable(productId);
-  if (quantity > product.quantity) return { inStock: false };
+  if (quantity > product.quantity) return { inStock: false, stock: product.quantity };
 
   const result = await cartModel.updateOne(
     { user: userId, "products.productId": product._id },
@@ -63,7 +63,7 @@ async function setQuantity(userId, productId, quantity) {
   );
   if (!result.matchedCount) throw notFound("This product is not in your cart");
   const { total } = await getItems(userId);
-  return { inStock: true, price: product.price * quantity, total };
+  return { inStock: true, price: product.price * quantity, total, stock: product.quantity };
 }
 
 async function remove(userId, productId) {
@@ -74,4 +74,10 @@ async function clear(userId) {
   await cartModel.deleteOne({ user: userId });
 }
 
-module.exports = { getItems, add, setQuantity, remove, clear };
+// Number of items in the cart (shown on the header's cart icon).
+async function count(userId) {
+  const cart = await cartModel.findOne({ user: userId }).select("products.quantity");
+  return (cart?.products ?? []).reduce((sum, line) => sum + line.quantity, 0);
+}
+
+module.exports = { getItems, add, setQuantity, remove, clear, count };

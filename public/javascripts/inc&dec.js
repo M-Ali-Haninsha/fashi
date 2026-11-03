@@ -1,35 +1,42 @@
-// const { response } = require("../../app");
+// Cart page: + / - buttons. The quantity only changes once the server has
+// accepted it, and + is disabled when there is no more stock.
+function updateValue(operation, proId) {
+    const quantityEl = document.querySelector(`.quantity[data-id="${proId}"]`);
+    const plus = document.querySelector(`[data-plus="${proId}"]`);
+    const minus = document.querySelector(`[data-minus="${proId}"]`);
+    const message = document.getElementById(`${proId}y`);
 
-function updateValue(operation, proId, stock){
-    const Quanty = document.querySelector(`.quantity[data-id="${proId}"] `) 
-    let quantityu = parseInt(Quanty.innerText); 
-    const quantityies = document.getElementById(`${proId}`)
-    if(operation === 'increment'){
-        quantityu++
-    }else if(operation === 'decrement' && quantityu>1){
-        quantityu--
-    }
-    Quanty.innerText=quantityu
-    
-    ajaxConnection(proId, quantityu)
+    const current = parseInt(quantityEl.innerText, 10);
+    const next = operation === 'increment' ? current + 1 : current - 1;
+    if (next < 1) return;
 
-}
-
-
-function ajaxConnection(id, quantity){
+    plus.disabled = true;
+    minus.disabled = true;
 
     $.ajax({
-        method:'put',
-        url:'/updateCart',
-        data:{id, quantity},
-        success:(response)=>{
-            if(response.status==true){
-                $(`#${id}k`).html(response.data.price)
-                $('#total').html(response.data.total)
-                $(`#${id}y`).html(response.data.stocks)
-            }else if(response.status=="out"){
-                $(`#${id}y`).html(response.data)
+        method: 'put',
+        url: '/updateCart',
+        data: { id: proId, quantity: next },
+        success: (response) => {
+            const stock = response.stock;
+            setCartCount(response.count);
+            if (response.status === true) {
+                quantityEl.innerText = next;
+                $(`#${proId}k`).html('₹' + response.data.price);
+                $('#total').html('<strong>' + response.data.total + '</strong>');
+                message.textContent = next >= stock ? `Only ${stock} in stock` : '';
+                plus.disabled = next >= stock;
+                minus.disabled = next <= 1;
+            } else {
+                message.textContent = response.data;
+                plus.disabled = true;
+                minus.disabled = current <= 1;
             }
-        }
-    })
+        },
+        error: (xhr) => {
+            message.textContent = xhr.responseJSON?.msg || 'Could not update the quantity';
+            plus.disabled = false;
+            minus.disabled = current <= 1;
+        },
+    });
 }

@@ -25,22 +25,22 @@
                         <tr>
                             <td class="p-4">
                                 <div class="media align-items-center">
-                                    <img src="{{img image.[1]}}"
-                                        class="d-block ui-w-40 ui-bordered mr-4" alt="">
-                                       
+                                    <img src="{{img image.[0]}}"
+                                        class="d-block ui-w-40 ui-bordered mr-4" alt="{{name}}">
+
                                     <div class="media-body">
-                                        <a href="#" class="d-block text-dark">{{name}}</a>
-                                         <span class="text-danger" id="{{id}}y"></span>
+                                        <a href="/singleView?id={{id}}" class="d-block text-dark">{{name}}</a>
+                                         <span class="text-danger" id="{{id}}y">{{#if outOfStock}}{{#if stock}}Only {{stock}} left, please lower the quantity{{else}}Out of stock, please remove it{{/if}}{{else}}{{#if atMax}}Only {{stock}} in stock{{/if}}{{/if}}</span>
                                     </div>
                                 </div>
                             </td>
                             <td class="text-right font-weight-semibold align-middle p-4">₹{{price}}</td>
                             <td class="test-right font-weight-semibold align-middle p-4">
-                                <button class="btn btn-primary " onclick="updateValue( 'increment', '{{id}}','{{stock}}')">+</button>
+                                <button class="btn btn-primary cart-qty-btn" data-plus="{{id}}" data-stock="{{stock}}" onclick="updateValue('increment', '{{id}}')"{{#if atMax}} disabled title="No more stock"{{/if}}>+</button>
                                 <div style="width: 2rem;">
                                     <span class="quantity"  data-id="{{id}}">{{quantity}}</span>
                                 </div>
-                                <button class="btn btn-primary  mt-1" onclick="updateValue( 'decrement', '{{id}}','{{stock}}')">-</button>
+                                <button class="btn btn-primary mt-1 cart-qty-btn" data-minus="{{id}}" onclick="updateValue('decrement', '{{id}}')"{{#if (eq quantity 1)}} disabled{{/if}}>-</button>
                             </td>
                             <td class="text-right font-weight-semibold align-middle p-4" id="{{id}}k">₹{{subPrice}} </td>
                             <td class="text-center align-middle px-0"><form method="post" action="/removeFromCart" style="display:inline"><input type="hidden" name="_csrf" value="{{@root.csrfToken}}"><input type="hidden" name="id" value="{{id}}"><button type="submit" class="shop-tooltip close float-none text-danger" title="" data-original-title="Remove">×</button></form></td>

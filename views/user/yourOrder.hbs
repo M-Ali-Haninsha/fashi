@@ -34,11 +34,11 @@
                      <td>{{grandtotal}}</td>
                      <td>{{status}}</td>
                        <td> <div class="dropdown">
-                         {{#if (eq status "Shipped")}}
-                        <a href="/userOrderCancel?id={{id}}"><button class="btn btn-danger">cancel</button></a>
+                         {{#if (oneOf status "processing" "Shipped")}}
+                        <form method="post" action="/userOrderCancel" style="display:inline"><input type="hidden" name="_csrf" value="{{@root.csrfToken}}"><input type="hidden" name="id" value="{{id}}"><button type="submit" class="btn btn-danger">cancel</button></form>
                     {{/if}}
                          {{#if (eq status "delivered")}}
-                        <a href="/userOrderReturn?id={{id}}"><button class="btn btn-danger">return</button></a>  
+                        <form method="post" action="/userOrderReturn" style="display:inline"><input type="hidden" name="_csrf" value="{{@root.csrfToken}}"><input type="hidden" name="id" value="{{id}}"><button type="submit" class="btn btn-danger">return</button></form>  
                     {{/if}}                    
                 </div></td>
                      <td><a href="/userViewProduct?id={{id}}"><button class="btn btn-success">view</button></a></td>

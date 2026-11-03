@@ -1,7 +1,8 @@
 
 <div class="container">
 <div class="col-md-6 add-product">
-    <form onsubmit="return validateform()" action="addProductTo" method="post" enctype="multipart/form-data"> 
+    <form onsubmit="return validateform()" action="addProductTo" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="_csrf" value="{{@root.csrfToken}}"> 
   <div class="form-group">
     <label for="name">Product Name:</label>
     <input type="text" class="form-control" id="pName" name="pName" required>

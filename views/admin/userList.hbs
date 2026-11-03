@@ -28,9 +28,9 @@
       <td>{{phoneNo}}</td>
       <td>{{userStatus}}</td>
       {{#if userStatus}}
-      <td><a href="/blockUser?id={{_id}}"><button class="btn btn-success">Block</button></a></td>
+      <td><form method="post" action="/blockUser" style="display:inline"><input type="hidden" name="_csrf" value="{{@root.csrfToken}}"><input type="hidden" name="id" value="{{_id}}"><button type="submit" class="btn btn-success">Block</button></form></td>
       {{else}}
-      <td><a href="/unblockUser?id={{_id}}"><button class="btn btn-danger">unBlock</button></a></td>
+      <td><form method="post" action="/unblockUser" style="display:inline"><input type="hidden" name="_csrf" value="{{@root.csrfToken}}"><input type="hidden" name="id" value="{{_id}}"><button type="submit" class="btn btn-danger">unBlock</button></form></td>
       {{/if}}
     </tr>
     {{/each}}

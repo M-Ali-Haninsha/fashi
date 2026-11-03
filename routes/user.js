@@ -1,97 +1,69 @@
-var express = require('express');
-var router = express.Router();
-const myController = require('../controller/userController');
-const otpC = require('../controller/otp')
-const cartControl=require('../controller/cartController')
-const userMiddleware = require('../middleware/userMiddleware')
-const activeOrNot = require('../middleware/userActiveOrNot')
-const userIn = require('../middleware/user/userIn')
-const orderControl = require('../controller/orderController')
-const couponControl = require('../controller/couponController')
+const express = require("express");
+const auth = require("../controllers/auth.controller");
+const shop = require("../controllers/shop.controller");
+const account = require("../controllers/account.controller");
+const cart = require("../controllers/cart.controller");
+const order = require("../controllers/order.controller");
+const { requireUser } = require("../middleware/auth");
+const { authLimiter } = require("../middleware/rateLimit");
+const validate = require("../middleware/validate");
+const s = require("../validators/schemas");
 
-/* GET home page. */
-router.get('/', myController.index);
+const router = express.Router();
 
-router.get('/userSignup', myController.signup)
+// Browsing
+router.get("/", shop.home);
+router.get("/shop", shop.shop);
+router.get("/singleView", shop.product);
 
-router.get('/otpPage', myController.otpPage)
+// Signup, login, password reset
+router.get("/userSignup", auth.signupPage);
+router.post("/signupSub", authLimiter, auth.signup);
+router.get("/otpPage", auth.otpPage);
+router.post("/otpSub", authLimiter, auth.confirmOtp);
+router.get("/resendOtp", authLimiter, auth.resendOtp);
+router.get("/userLogin", auth.loginPage);
+router.post("/loggedIn", authLimiter, auth.login);
+router.get("/signout", auth.logout);
+router.get("/fPassword", auth.forgotPasswordPage);
+router.post("/updatePass", authLimiter, auth.forgotPassword);
+router.get("/success", auth.resetSentPage);
+router.get("/updatePassPage", auth.resetPasswordPage);
+router.post("/setpass", authLimiter, auth.resetPassword);
 
-router.post('/signupSub', myController.signupSubmit)
+// Everything below needs a logged-in, unblocked shopper (requireUser).
 
-router.get('/userLogin', myController.userLogin)
+// Cart
+router.get("/cart", requireUser, cart.cart);
+router.post("/addToCart", requireUser, validate({ body: s.withId }), cart.addToCart);
+router.put("/updateCart", requireUser, validate({ body: s.cartQuantity }), cart.updateCart);
+router.post("/removeFromCart", requireUser, validate({ body: s.withId }), cart.removeFromCart);
 
-router.post('/loggedIn', myController.loginSubmit)
+// Profile and addresses
+router.get("/userProfile", requireUser, account.profile);
+router.get("/editProfile", requireUser, account.addAddressPage);
+router.post("/addProfileTo", requireUser, validate({ body: s.address }), account.addAddress("/userProfile"));
+router.get("/editAddressFromUser", requireUser, account.editAddressPage);
+router.post("/editaddressfromuserto", requireUser, validate({ body: s.addressWithId }), account.updateAddress("/userProfile"));
+router.get("/walletHistory", requireUser, account.walletHistory);
 
-router.post('/otpSub', myController.proceedOtp)
+// Checkout
+router.get("/checkout", requireUser, order.checkoutPage);
+router.get("/selectAddress", requireUser, account.chooseAddressPage);
+router.post("/add", requireUser, order.rememberAddress);
+router.post("/addProfileFromCheckout", requireUser, validate({ body: s.address }), account.addAddress("/checkout"));
+router.post("/editaddress", requireUser, account.editCheckoutAddressPage);
+router.post("/updateFromCheckout", requireUser, validate({ body: s.addressWithId }), account.updateAddress("/checkout"));
+router.post("/applyCoupon", requireUser, validate({ body: s.couponCode }), order.applyCoupon);
+router.post("/cancelCoupon", requireUser, order.cancelCoupon);
+router.post("/placeOrder", requireUser, validate({ body: s.checkout }), order.placeOrder);
+router.post("/verifyPayment", requireUser, validate({ body: s.verifyPayment }), order.verifyPayment);
 
-router.get('/resendOtp', myController.resendOtp)
-
-router.get('/fPassword', myController.forgotPasswordPage)
-
-router.get('/updatePassPage', myController.updatePassword)
-
-router.post('/updatePass', myController.forgotPass)
-
-router.get('/success', myController.Csuccess)
-
-router.post('/setpass', myController.updatePass)
-
-router.get('/shop', myController.shop)
-
-router.get('/singleView', myController.singleProduct)
-
-router.get('/cart', userIn,activeOrNot, cartControl.cart)
-
-router.get('/addToCart',  userIn,activeOrNot, cartControl.addToCart)
-
-router.put('/updateCart', userIn,activeOrNot, cartControl.updateCart)
-
-router.get("/removeFromCart",  userIn,activeOrNot, cartControl.removeFromCart)
-
-router.get("/checkout", userIn,activeOrNot, myController.checkout)
-
-router.get('/userProfile', userIn,activeOrNot, myController.profile)
-
-router.get('/editAddressFromUser', userIn,activeOrNot, myController.editaddressfromuser)
-
-router.post('/editaddressfromuserto', userIn,activeOrNot, myController.editaddressfromuserto)
-
-router.get('/editProfile', userIn,activeOrNot, myController.editProfile)
-
-router.post('/addProfileTo', userIn,activeOrNot, myController.addProfileTo)
-
-router.post('/addProfileFromCheckout', userIn,activeOrNot, myController.addProfileFromCheckout)
-
-router.get('/selectAddress', userIn,activeOrNot, myController.selectAddress)
-
-router.post('/add', userIn,activeOrNot, myController.add)
-
-router.post('/editaddress', userIn,activeOrNot, myController.editaddress)
-
-router.post('/updateFromCheckout', userIn,activeOrNot, myController.updateAddress)
-
-router.post('/placeOrder',  userIn,activeOrNot,orderControl.placeOrder )
-
-router.post('/verifyPayment',  userIn,activeOrNot,orderControl.userVerifypayment)
-
-router.post('/applyCoupon', userIn,activeOrNot, couponControl.applyCoupon)
-
-router.get('/cancelCoupon',  userIn,activeOrNot,couponControl.cancelApplyCoupon)
-
-router.get('/orderSuccess', userIn,activeOrNot, myController.orderSuccess)
-
-router.get('/yourOrder', userIn,activeOrNot, myController.yourOrder)
-
-router.get('/userOrderCancel', userIn,activeOrNot, myController.userCancelOrder)
-
-router.get('/userOrderReturn', userIn,activeOrNot, myController.userOrderReturn)
-
-router.get('/userViewProduct', userIn,activeOrNot, myController.userViewProduct)
-
-router.get('/walletHistory', userIn,activeOrNot, myController.walletHistory)
-
-
-
-router.get('/signout', myController.signout)
+// Orders
+router.get("/orderSuccess", requireUser, order.orderSuccess);
+router.get("/yourOrder", requireUser, order.myOrders);
+router.get("/userViewProduct", requireUser, order.myOrder);
+router.post("/userOrderCancel", requireUser, validate({ body: s.withId }), order.cancelOrder);
+router.post("/userOrderReturn", requireUser, validate({ body: s.withId }), order.returnOrder);
 
 module.exports = router;

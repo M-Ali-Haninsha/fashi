@@ -1,26 +1,31 @@
 const mongoose = require("mongoose");
 
-const orderSchema= new mongoose.Schema({
-    ordereduser:{type:String,required:true}, 
-    deliveryaddress:{
-        firstname:{type:String},
-        lastname:{type:String},
-        country:{type:String},
-        state:{type:String},
-        pincode:{type:Number},
-        district:{type:String},
-        phonenumber:{type:Number},
-        email:{type:String},
-        address:{type:String},
-    },
-    date:{type:Date, required:true},
-    grandtotal:{type:Number,required:true},
-    products:{type:Array,required:true},
-    paymentmethod:{type:String,required:true},
-    status:{type:String,required:true}
-   
-    
-})
-  
-const ordercollection =new mongoose.model("orderdatas", orderSchema);
-module.exports = ordercollection
+const orderSchema = new mongoose.Schema({
+  ordereduser: { type: mongoose.Schema.Types.ObjectId, ref: "blog", required: true },
+  deliveryaddress: {
+    firstname: String,
+    lastname: String,
+    country: String,
+    state: String,
+    pincode: Number,
+    district: String,
+    phonenumber: Number,
+    email: String,
+    address: String,
+  },
+  date: { type: Date, required: true },
+  grandtotal: { type: Number, required: true, min: 0 },
+  // What the shopper paid with: "cod", "wallet" or "online" (Razorpay).
+  paymentmethod: { type: String, required: true },
+  products: { type: Array, required: true },
+  status: { type: String, required: true },
+  couponCode: String,
+  discount: { type: Number, default: 0 },
+  razorpayOrderId: { type: String, index: { unique: true, sparse: true } },
+  razorpayPaymentId: String,
+  deliveredAt: Date,
+  // Set once money has been returned to the wallet, so it can only happen once.
+  refundedAt: Date,
+});
+
+module.exports = mongoose.model("orderdatas", orderSchema);

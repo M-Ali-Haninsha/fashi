@@ -27,6 +27,7 @@
                     <div class="login-form">
                         <h2>Signup</h2>
                         <form onsubmit="return validateform()" action="/signupSub" method="post">
+    <input type="hidden" name="_csrf" value="{{@root.csrfToken}}">
                             <div class="group-input">
                                 <label for="username">Username *</label>
                                 <input type="text" id="name" name="username" >

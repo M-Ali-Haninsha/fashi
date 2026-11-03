@@ -11,19 +11,18 @@ function updateValue(operation, proId, stock){
     }
     Quanty.innerText=quantityu
     
-    ajaxConnection(proId, quantityu, stock)
+    ajaxConnection(proId, quantityu)
 
 }
 
 
-function ajaxConnection(id, quantity, stock){
+function ajaxConnection(id, quantity){
 
     $.ajax({
         method:'put',
         url:'/updateCart',
-        data:{id, quantity, stock},
+        data:{id, quantity},
         success:(response)=>{
-            console.log(response.data)
             if(response.status==true){
                 $(`#${id}k`).html(response.data.price)
                 $('#total').html(response.data.total)

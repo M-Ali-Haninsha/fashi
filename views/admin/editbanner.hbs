@@ -2,7 +2,8 @@
 
 <div class="col-md-6">
     {{#with banner}}
-    <form action="/editbannerto" method="post" enctype="multipart/form-data"> 
+    <form action="/editbannerto" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="_csrf" value="{{@root.csrfToken}}"> 
   <div class="form-group">
     
     <label for="name">Banner:</label>
@@ -10,18 +11,18 @@
   </div>
   <div class="form-group">
   <label for="image">Main Banner:</label>
-  <input type="file" class="form-control" id="image" name="image" multiple accept="image/*"  required>
+  <input type="file" class="form-control" id="image" name="image" multiple accept="image/*">
   </div>
   <div class="form-group">
 
     
 
 
-    <img id="img-preview-1" src="/images/productImages/{{mainImageBanner.[0]}}" style="width: 98%; height: 21%;">
+    <img id="img-preview-1" src="{{img mainImageBanner.[0]}}" style="width: 98%; height: 21%;">
         
 
 
-    <img id="img-preview-2" src="/images/productImages/{{mainImageBanner.[1]}}" style="width: 98%; height: 21%; margin-top: 1rem;">
+    <img id="img-preview-2" src="{{img mainImageBanner.[1]}}" style="width: 98%; height: 21%; margin-top: 1rem;">
 
 
 

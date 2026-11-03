@@ -1,15 +1,19 @@
-const adminMongoose = require('mongoose')
+const mongoose = require("mongoose");
 
-const adminSchema= new adminMongoose.Schema({
-    adminMail:{
-        type: String,
-        required: true
-    },
-    adminPassword:{
-        type: Number,
-        required: true
-    }
+const adminSchema = new mongoose.Schema({
+  adminMail: {
+    type: String,
+    required: true,
+    unique: true,
+    lowercase: true,
+    trim: true,
+  },
+  // bcrypt hash; create or reset with `npm run create-admin`.
+  adminPassword: {
+    type: String,
+    required: true,
+    select: false,
+  },
 });
 
-const adminBlog = adminMongoose.model('adminBlog', adminSchema)
-module.exports= adminBlog
+module.exports = mongoose.model("adminBlog", adminSchema);

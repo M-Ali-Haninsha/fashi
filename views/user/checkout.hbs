@@ -137,6 +137,7 @@
                 </div>
                 <div class="modal-body">
 <form action="/addProfileFromCheckout" method="post" class="checkout-form">
+    <input type="hidden" name="_csrf" value="{{@root.csrfToken}}">
             <div class="row">
                 <div class="col-lg-12">
                    
@@ -207,6 +208,7 @@
                 </div>
                 <div class="modal-body">
                     <form class="checkout-modal2__form2" action="/editaddress" method="post">
+    <input type="hidden" name="_csrf" value="{{@root.csrfToken}}">
   <div class="dash__table-2-wrap u-s-m-b-30 gl-scroll">
     <table class="dash__table-2">
       <thead>
@@ -384,42 +386,34 @@
             data: $('#checkout-form').serialize(),
             success: (response) => {
                 if (response.status == true) {
-                    razorpayPayment(response.order)
+                    razorpayPayment(response.order, response.key)
 
                 } else if (response.status == 'cod') {
                      swal("order placed!", "success")
                    .then(()=>{
                     location.href = '/orderSuccess'
                    }) 
-                }else if(response.status== false){
-                    $('#error').html('insufficient balance, try other way of payment')
                 }
+            },
+            error: (xhr) => {
+                $('#error').text(xhr.responseJSON?.msg || 'Could not place the order, please try again')
             }
         })
 
     })
 
-    function razorpayPayment(order) {
+    function razorpayPayment(order, key) {
         var options = {
-            "key": "rzp_test_TDRJfd82mop9MS", 
+            "key": key, 
             "amount": order.amount, 
             "currency": "INR",
             "name": "Fashi", 
-            "description": "Test Transaction",
-            "image": "https://example.com/your_logo",
+            "description": "Order payment",
             "order_id": order.id, 
 
             "handler": function (response) {
 
                 verifyPayment(response, order)
-            },
-            "prefill": {
-                "name": "Gaurav Kumar", //your customer's name
-                "email": "gaurav.kumar@example.com",
-                "contact": "9000090000"
-            },
-            "notes": {
-                "address": "Razorpay Corporate Office"
             },
             "theme": {
                 "color": "#3399cc"
@@ -435,16 +429,18 @@
             url: '/verifyPayment',
             method: 'post',
             data: {
-                payment,
-                order
+                razorpay_order_id: payment.razorpay_order_id,
+                razorpay_payment_id: payment.razorpay_payment_id,
+                razorpay_signature: payment.razorpay_signature
             },
 
             success: (response) => {
                 if (response.PaymentSuccess == true) {
                     location.href = "/orderSuccess"
-                } else {
-                    alert('payment failed')
                 }
+            },
+            error: (xhr) => {
+                swal(xhr.responseJSON?.msg || 'Payment could not be verified. If money was deducted, please contact us.')
             }
         })
     }
@@ -481,7 +477,7 @@
             if (value) { // If "true" button clicked
                 $.ajax({
                     url: '/cancelCoupon',
-                    method: 'get',
+                    method: 'post',
                     success: (response) => {
                         if (response.status == true) {
                             location.reload()

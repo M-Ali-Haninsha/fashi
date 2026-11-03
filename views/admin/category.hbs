@@ -22,7 +22,7 @@
 
                         <td>
                            <a href="/editCategory?id={{_id}}"><button class="btn btn-primary">edit</button></a>
-                           <a href="/deleteCategory?id={{_id}}"><button class="btn btn-danger">delete</button></a></td>     
+                           <form method="post" action="/deleteCategory" style="display:inline"><input type="hidden" name="_csrf" value="{{@root.csrfToken}}"><input type="hidden" name="id" value="{{_id}}"><button type="submit" class="btn btn-danger">delete</button></form></td>     
                      </tr>
                      {{/each}}
                      {{#if msg}}

@@ -33,12 +33,12 @@
                      <td>{{expiredate}}</td>
                      <td>{{status}}</td>
                      <td><a href="/editcoupon?id={{_id}}"><button class="btn btn-primary">edit</button></a>
-                     <a href="/deleteCoupon?id={{_id}}"><button class="btn btn-danger">Delete</button></a>
+                     <form method="post" action="/deleteCoupon" style="display:inline"><input type="hidden" name="_csrf" value="{{@root.csrfToken}}"><input type="hidden" name="id" value="{{_id}}"><button type="submit" class="btn btn-danger">Delete</button></form>
                      </td>
                          {{#if status}}
-                     <td><a href="/deactivateCoupon?id={{_id}}"><button class="btn btn-danger">deactivate</button></a></td>
+                     <td><form method="post" action="/deactivateCoupon" style="display:inline"><input type="hidden" name="_csrf" value="{{@root.csrfToken}}"><input type="hidden" name="id" value="{{_id}}"><button type="submit" class="btn btn-danger">deactivate</button></form></td>
                      {{else}}
-                     <td><a href="/activateCoupon?id={{_id}}"><button class="btn btn-success">activate</button></a></td>                     
+                     <td><form method="post" action="/activateCoupon" style="display:inline"><input type="hidden" name="_csrf" value="{{@root.csrfToken}}"><input type="hidden" name="id" value="{{_id}}"><button type="submit" class="btn btn-success">activate</button></form></td>                     
                      {{/if}}
                   </tr>
                   {{/each}}

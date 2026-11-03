@@ -1,10 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{csrfToken}}">
     {{#if admin}}
     {{>adminLinks}}
     {{/if}}
     {{#if user}}
     {{>links}}
     {{/if}}
+    <script>
+        // Every AJAX request that changes data must carry the CSRF token.
+        if (window.jQuery) {
+            jQuery.ajaxSetup({ headers: { 'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content } });
+        }
+    </script>
 </head>
 <body>
     {{#if admin}}
@@ -22,3 +33,4 @@
     {{>footer}}
     {{/if}}
 </body>
+</html>

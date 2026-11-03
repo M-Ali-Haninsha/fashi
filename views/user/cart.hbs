@@ -25,7 +25,7 @@
                         <tr>
                             <td class="p-4">
                                 <div class="media align-items-center">
-                                    <img src="http://res.cloudinary.com/df3qijj4a/image/upload/v1683971241/{{image.[1]}}"
+                                    <img src="{{img image.[1]}}"
                                         class="d-block ui-w-40 ui-bordered mr-4" alt="">
                                        
                                     <div class="media-body">
@@ -43,9 +43,7 @@
                                 <button class="btn btn-primary  mt-1" onclick="updateValue( 'decrement', '{{id}}','{{stock}}')">-</button>
                             </td>
                             <td class="text-right font-weight-semibold align-middle p-4" id="{{id}}k">₹{{subPrice}} </td>
-                            <td class="text-center align-middle px-0"><a href="/removeFromCart?id={{id}}"
-                                    class="shop-tooltip close float-none text-danger" title=""
-                                    data-original-title="Remove">×</a></td>
+                            <td class="text-center align-middle px-0"><form method="post" action="/removeFromCart" style="display:inline"><input type="hidden" name="_csrf" value="{{@root.csrfToken}}"><input type="hidden" name="id" value="{{id}}"><button type="submit" class="shop-tooltip close float-none text-danger" title="" data-original-title="Remove">×</button></form></td>
                         </tr>
                         {{/each}}
 

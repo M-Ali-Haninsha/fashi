@@ -31,6 +31,7 @@
                             </a>
                         </div>
                         <form action="/otpSub" method="post" style="margin-top: 3rem;">
+    <input type="hidden" name="_csrf" value="{{@root.csrfToken}}">
                             <div class="group-input">
                                 <input type="text" id="username" placeholder="Enter OTP" name="otp">
                             </div>

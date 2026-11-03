@@ -90,7 +90,7 @@
 
                             <div class="product-item">
                                 <div class="pi-pic">
-                                    <img src="http://res.cloudinary.com/df3qijj4a/image/upload/v1683971241/{{image.[0]}}">
+                                    <img src="{{img image.[0]}}">
                                     <div class="sale pp-sale">Sale</div>
                                
                                     <ul>
@@ -118,7 +118,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div>
-                                {{{pagination totalPages currentPage}}}
+                                {{{pagination totalPages currentPage pageQuery}}}
                             </div>
 
                         </div>
@@ -136,13 +136,15 @@
 <script>
     function toAdd(id) {
         $.ajax({
-            url: '/addToCart?id=' + id,
-            method: 'get',
-            success: (response) => {
-                if (response.status) {
-                    swal("Product addedd!", "Please check your cart!", "success");
-                }else{
-                    swal("please Login to your account")
+            url: '/addToCart',
+            method: 'post',
+            data: { id },
+            success: () => swal("Product added!", "Please check your cart!", "success"),
+            error: (xhr) => {
+                if (xhr.status === 401) {
+                    swal("Please log in to your account").then(() => { location.href = '/userLogin' })
+                } else {
+                    swal(xhr.responseJSON?.msg || "Could not add this product")
                 }
             }
         })

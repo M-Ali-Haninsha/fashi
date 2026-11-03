@@ -31,20 +31,20 @@
             <div class="row">
                 <div class="col-lg-2 order-lg-1 order-2">
                     <ul class="image_list">
-                        <li data-image="https://res.cloudinary.com/dxfq3iotg/image/upload/v1565713229/single_4.jpg"
-                            style="padding: 0;"><img src="http://res.cloudinary.com/df3qijj4a/image/upload/v1683971241/{{singleProductView.image.[0]}}"
+                        <li data-image="{{img singleProductView.image.[0]}}"
+                            style="padding: 0;"><img src="{{img singleProductView.image.[0]}}"
                                 style="height: 100%; width: 80%;"></li>
-                        <li data-image="https://res.cloudinary.com/dxfq3iotg/image/upload/v1565713228/single_2.jpg"
-                            style="padding: 0;"><img src="http://res.cloudinary.com/df3qijj4a/image/upload/v1683971241/{{singleProductView.image.[1]}}"
+                        <li data-image="{{img singleProductView.image.[1]}}"
+                            style="padding: 0;"><img src="{{img singleProductView.image.[1]}}"
                                 style="height: 100%; width: 80%;"></li>
-                        <li data-image="https://res.cloudinary.com/dxfq3iotg/image/upload/v1565713228/single_3.jpg"
-                            style="padding: 0;"><img src="http://res.cloudinary.com/df3qijj4a/image/upload/v1683971241/{{singleProductView.image.[2]}}"
+                        <li data-image="{{img singleProductView.image.[2]}}"
+                            style="padding: 0;"><img src="{{img singleProductView.image.[2]}}"
                                 style="height: 100%; width: 80%;"></li>
                     </ul>
                 </div>
                 <div class="col-lg-4 order-lg-2 order-1">
                     <div id="image-container" class="image_selected"><img style="width: 100%; height:100%;"
-                            src="http://res.cloudinary.com/df3qijj4a/image/upload/v1683971241/{{singleProductView.image.[1]}}" alt=""></div>
+                            src="{{img singleProductView.image.[0]}}" alt="{{singleProductView.name}}"></div>
                 </div>
                 <div class="col-lg-6 order-3">
                     <div class="product_description">
@@ -103,13 +103,15 @@
 <script>
     function toAdd(id) {
         $.ajax({
-            url: '/addToCart?id=' + id,
-            method: 'get',
-            success: (response) => {
-                if (response.status) {
-                    swal("Product addedd!", "Please check your cart!", "success");
-                }else{
-                    swal("please Login to your account")
+            url: '/addToCart',
+            method: 'post',
+            data: { id },
+            success: () => swal("Product added!", "Please check your cart!", "success"),
+            error: (xhr) => {
+                if (xhr.status === 401) {
+                    swal("Please log in to your account").then(() => { location.href = '/userLogin' })
+                } else {
+                    swal(xhr.responseJSON?.msg || "Could not add this product")
                 }
             }
         })

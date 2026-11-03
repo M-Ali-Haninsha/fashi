@@ -38,8 +38,8 @@
                         select
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="/confirmOrder?id={{id}}">confirm order</a>
-                        <a class="dropdown-item" href="/cancelOrder?id={{id}}">cancel order</a>
+                        <form method="post" action="/confirmOrder" style="display:inline"><input type="hidden" name="_csrf" value="{{@root.csrfToken}}"><input type="hidden" name="id" value="{{id}}"><button type="submit" class="dropdown-item">confirm order</button></form>
+                        <form method="post" action="/cancelOrder" style="display:inline"><input type="hidden" name="_csrf" value="{{@root.csrfToken}}"><input type="hidden" name="id" value="{{id}}"><button type="submit" class="dropdown-item">cancel order</button></form>
                     </div>
                     {{/if}}
                          {{#if (eq status "Shipped")}}
@@ -48,8 +48,8 @@
                         select
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="/cancelOrder?id={{id}}">cancel order</a>
-                        <a class="dropdown-item" href="/delivered?id={{id}}">delivered</a>
+                        <form method="post" action="/cancelOrder" style="display:inline"><input type="hidden" name="_csrf" value="{{@root.csrfToken}}"><input type="hidden" name="id" value="{{id}}"><button type="submit" class="dropdown-item">cancel order</button></form>
+                        <form method="post" action="/delivered" style="display:inline"><input type="hidden" name="_csrf" value="{{@root.csrfToken}}"><input type="hidden" name="id" value="{{id}}"><button type="submit" class="dropdown-item">delivered</button></form>
                     </div>
                     {{/if}}                    
                 </div>
@@ -59,7 +59,7 @@
                         select
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="/confirmReturn?id={{id}}">confirm return</a>
+                        <form method="post" action="/confirmReturn" style="display:inline"><input type="hidden" name="_csrf" value="{{@root.csrfToken}}"><input type="hidden" name="id" value="{{id}}"><button type="submit" class="dropdown-item">confirm return</button></form>
                     </div>
                     {{/if}}                
                 </td>

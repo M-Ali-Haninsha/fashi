@@ -1,23 +1,12 @@
-const mongoose = require('mongoose')
-const { array } = require('../configuration/multer')
+const mongoose = require("mongoose");
 
 const bannerSchema = new mongoose.Schema({
-    mainImageBanner:{
-        type:Array
-    },
-    span1:{
-        type:String
-    },
-    mainH1:{
-        type:String
-    },
-    mainP:{
-        type:String
-    },
-    direction:{
-        type:String
-    }
-})
-const banner=mongoose.model('banner', bannerSchema);
+  // Cloudinary public ids.
+  mainImageBanner: { type: Array },
+  span1: { type: String },
+  mainH1: { type: String },
+  mainP: { type: String },
+  direction: { type: String },
+});
 
-module.exports = banner;
+module.exports = mongoose.model("banner", bannerSchema);

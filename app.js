@@ -1,62 +1,67 @@
-const createError = require('http-errors');
-const express = require('express');
-const path = require('path');
-const cookieParser = require('cookie-parser');
-const logger = require('morgan');
-const session = require('express-session')
-const userRouter = require('./routes/user');
-const adminRouter = require('./routes/admin');
-const hbs = require('express-handlebars')
-require('./configuration/database/mongoose')
-const handlebars = require('handlebars')
-require('dotenv').config()
-const helpers = require('./public/javascripts/pagination')
+const path = require("path");
+const express = require("express");
+const session = require("express-session");
+const helmet = require("helmet");
+const logger = require("morgan");
+const { engine } = require("express-handlebars");
+const config = require("./config/env");
+const helpers = require("./utils/hbsHelpers");
+const { csrfProtection } = require("./middleware/csrf");
+const { exposeUser } = require("./middleware/auth");
+const { notFoundHandler, errorHandler } = require("./middleware/errorHandler");
+const userRouter = require("./routes/user");
+const adminRouter = require("./routes/admin");
 
-handlebars.registerHelper("inc", function(value, options){
-  return parseInt(value)+1
-})
+// `sessionStore` is passed in by server.js (MongoDB) and by the tests.
+function createApp({ sessionStore } = {}) {
+  const app = express();
+  app.set("trust proxy", 1);
 
-handlebars.registerHelper('eq', function (a, b) {
-  return a == b;
-  })
+  app.engine(
+    "hbs",
+    engine({
+      extname: "hbs",
+      defaultLayout: "layout",
+      layoutsDir: path.join(__dirname, "views/layout"),
+      partialsDir: path.join(__dirname, "views/partials"),
+      helpers,
+      runtimeOptions: { allowProtoPropertiesByDefault: true, allowProtoMethodsByDefault: true },
+    })
+  );
+  app.set("view engine", "hbs");
+  app.set("views", path.join(__dirname, "views"));
 
-const app = express();
+  // The pages load scripts, styles and fonts from several CDNs and use inline
+  // scripts, so a Content-Security-Policy is left off; helmet's other headers apply.
+  app.use(helmet({ contentSecurityPolicy: false }));
+  if (!config.isTest) app.use(logger("dev"));
+  app.use(express.json({ limit: "100kb" }));
+  app.use(express.urlencoded({ extended: false, limit: "100kb" }));
+  app.use(express.static(path.join(__dirname, "public")));
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'hbs');
-app.engine('hbs', hbs.engine({extname: 'hbs', defaultLayout: 'layout', layoutsDir: __dirname + '/views/layout/', partialsDir: __dirname + '/views/partials', runtimeOptions:{allowProtoPropertiesByDefault:true, allowProtoMethodsByDefault:true,},helpers:helpers}))
+  app.use(
+    session({
+      secret: config.sessionSecret,
+      store: sessionStore,
+      resave: false,
+      saveUninitialized: false,
+      cookie: {
+        httpOnly: true,
+        sameSite: "lax",
+        secure: config.isProduction,
+        maxAge: 24 * 60 * 60 * 1000,
+      },
+    })
+  );
+  app.use(csrfProtection);
+  app.use(exposeUser);
 
+  app.use("/", userRouter);
+  app.use("/", adminRouter);
 
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(session({secret:process.env.SESSION_KEY, cookie:{maxAge:600000}, resave:false, saveUninitialized:true}));
+  app.use(notFoundHandler);
+  app.use(errorHandler);
+  return app;
+}
 
-
-app.use(express.static(path.join(__dirname, 'public')));
-
-
-app.use('/', userRouter);
-app.use('/', adminRouter);
-
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
-});
-
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
-});
-
-app.listen(3000)
-
-
+module.exports = { createApp };

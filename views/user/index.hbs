@@ -9,7 +9,7 @@
     <!-- Hero Section Begin -->
     <section class="hero-section">
     <div class="hero-items owl-carousel">
-        <div class="single-hero-items set-bg" data-setbg="/images/productImages/{{ banner.mainImageBanner.[0]}}">
+        <div class="single-hero-items set-bg" data-setbg="{{img banner.mainImageBanner.[0]}}">
       
             <div class="container">
                 <div class="row">
@@ -22,7 +22,7 @@
                 </div>
             </div>
         </div>
-        <div class="single-hero-items set-bg" data-setbg="/images/productImages/{{ banner.mainImageBanner.[1]}}">
+        <div class="single-hero-items set-bg" data-setbg="{{img banner.mainImageBanner.[1]}}">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-5">
@@ -108,7 +108,7 @@
                         {{#each womenPro}}
                         <div class="product-item">
                             <div class="pi-pic">
-                                <img src="http://res.cloudinary.com/df3qijj4a/image/upload/v1683971241/{{image.[0]}}" alt="">
+                                <img src="{{img image.[0]}}" alt="">
                                 <div class="sale">Sale</div>
                                 {{!-- <div class="icon">
                                     <i class="icon_heart_alt"></i>
@@ -190,7 +190,7 @@
                         {{#each menPro}}
                         <div class="product-item">
                             <div class="pi-pic">
-                                <img src="http://res.cloudinary.com/df3qijj4a/image/upload/v1683971241/{{image.[0]}}" alt="">
+                                <img src="{{img image.[0]}}" alt="">
                                 <div class="sale">Sale</div>
 
                                 <ul>
@@ -249,7 +249,7 @@
                         {{#each kidPro}}
                         <div class="product-item">
                             <div class="pi-pic">
-                                <img src="http://res.cloudinary.com/df3qijj4a/image/upload/v1683971241/{{image.[0]}}" alt="">
+                                <img src="{{img image.[0]}}" alt="">
                                 <div class="sale">Sale</div>
     
                                 <ul>
@@ -279,7 +279,7 @@
 
     <div class="instagram-photo">
         {{#each productData}}
-        <div class="insta-item set-bg" data-setbg="http://res.cloudinary.com/df3qijj4a/image/upload/v1683971241/{{image.[0]}}">
+        <div class="insta-item set-bg" data-setbg="{{img image.[0]}}">
             <div class="inside-text">
             </div>
         </div>

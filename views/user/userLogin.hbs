@@ -27,6 +27,7 @@
                     <div class="login-form">
                         <h2>Login</h2>
                         <form action="/loggedIn" method="post">
+    <input type="hidden" name="_csrf" value="{{@root.csrfToken}}">
                             <div class="group-input">
                                 <label for="username">email address *</label>
                                 <input type="text" id="username" name="Email" required>

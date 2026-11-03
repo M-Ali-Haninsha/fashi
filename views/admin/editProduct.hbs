@@ -2,7 +2,8 @@
 
 <div class="col-md-6">
     {{#with productData}}
-    <form action="/editProductTo?id={{_id}}" method="post" enctype="multipart/form-data"> 
+    <form action="/editProductTo?id={{_id}}" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="_csrf" value="{{@root.csrfToken}}"> 
   <div class="form-group">
     
     <label for="name">Product Name:</label>
@@ -19,17 +20,17 @@
 
     
     <div>
-        <img id="img-preview-1" src="http://res.cloudinary.com/df3qijj4a/image/upload/v1683971241/{{image.[0]}}" alt="add image"  style="width: 21%; height: 21%;">
+        <img id="img-preview-1" src="{{img image.[0]}}" alt="add image"  style="width: 21%; height: 21%;">
  <button  onclick="pullImage('{{_id}}', '{{image.[0]}}')" class="btn btn-danger" type="button"> delete</button>
     </div>
 
 <div >
-   <img id="img-preview-2" src="http://res.cloudinary.com/df3qijj4a/image/upload/v1683971241/{{image.[1]}}"  alt="add image" style="width: 21%; height: 21%;">
+   <img id="img-preview-2" src="{{img image.[1]}}"  alt="add image" style="width: 21%; height: 21%;">
  <button onclick="pullImage('{{_id}}', '{{image.[1]}}')" class="btn btn-danger" type="button"> delete</button>
 </div>
    
 <div>
-  <img id="img-preview-3" src="http://res.cloudinary.com/df3qijj4a/image/upload/v1683971241/{{image.[2]}}" alt="add image" style="width: 21%; height: 21%;">
+  <img id="img-preview-3" src="{{img image.[2]}}" alt="add image" style="width: 21%; height: 21%;">
  <button onclick="pullImage('{{_id}}', '{{image.[2]}}')" class="btn btn-danger" type="button"> delete</button>
 </div>
 

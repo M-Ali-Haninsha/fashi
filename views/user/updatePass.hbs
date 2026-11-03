@@ -20,7 +20,10 @@
                 <div class="col-lg-6 offset-lg-3">
                     <div class="login-form">
                         <h2>Reset password</h2>
-                        <form action="/setpass?id={{id}}" method="post">
+                        <form action="/setpass" method="post">
+    <input type="hidden" name="_csrf" value="{{@root.csrfToken}}">
+    <input type="hidden" name="token" value="{{token}}">
+                            {{#if error}}<p class="text-danger">{{error}}</p>{{/if}}
                             <div class="group-input">
                                 <label for="username">password*</label>
                                 <input type="text" id="pass" name="password">

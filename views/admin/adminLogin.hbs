@@ -49,6 +49,7 @@
                   </div>
                   <div class="login_form">
                      <form action="/adminLogged" method="post">
+    <input type="hidden" name="_csrf" value="{{@root.csrfToken}}">
                         <fieldset>
                            <div class="field">
                               <label class="label_field">Email Address</label>

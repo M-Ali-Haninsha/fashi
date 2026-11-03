@@ -11,6 +11,7 @@
                         <div class="card-body">
                             <form action="/addCouponTo" method="post" name="Submission"
                                 method="post">
+    <input type="hidden" name="_csrf" value="{{@root.csrfToken}}">
                                  <div class="form-group">
                                     <label for="couponcode">Coupon name</label>
                                     <input type="text" class="form-control" name="couponname" id="couponname"

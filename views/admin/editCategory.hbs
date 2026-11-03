@@ -1,4 +1,5 @@
  {{!-- <form action="/editCategoryTo" method="post" style="margin-top: 3rem;">
+    <input type="hidden" name="_csrf" value="{{@root.csrfToken}}">
     <div class="group-input">
     <input type="text" id="" placeholder="category name" name="name" value="{{cCat.name}}">
     </div>
@@ -19,6 +20,7 @@
 <div class="login-page">
   <div class="form">
     <form class="login-form" action="/editCategoryTo" method="post">
+    <input type="hidden" name="_csrf" value="{{@root.csrfToken}}">
         <p>Enter the name to edit</p>
     <input type="text" id="" placeholder="category name" name="name" value="{{cCat.name}}" required>
     <input type="hidden" id="" placeholder="category name" name="id" value="{{cCat._id}}">

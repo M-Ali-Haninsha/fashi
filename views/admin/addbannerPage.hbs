@@ -1,6 +1,7 @@
 <div class="container">
 <div class="col-md-6 add-product">
-    <form action="/addbannerTo" method="post" enctype="multipart/form-data"> 
+    <form action="/addbannerTo" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="_csrf" value="{{@root.csrfToken}}"> 
 
   <div class="form-group">
   <label for="image">Product Image:</label>

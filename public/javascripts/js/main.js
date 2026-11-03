@@ -60,7 +60,7 @@
         margin: 25,
         nav: false,
         items: 4,
-        dots: false,
+        dots: true,
         navText: ['<i class="fa-solid fa-chevron-left"></i>', '<i class="fa-solid fa-chevron-right"></i>'],
         smartSpeed: 1200,
         autoHeight: false,

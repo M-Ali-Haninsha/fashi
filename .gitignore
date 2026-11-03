@@ -1,2 +1,6 @@
 .env
 node_modules
+
+# uploads go to Cloudinary; never commit local upload folders
+public/images/productImages/
+coverage/

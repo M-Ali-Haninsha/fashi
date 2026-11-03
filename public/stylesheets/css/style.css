@@ -4325,3 +4325,9 @@ ol {
 .active1{
 		background: #e7ab3c;
 	}
+/* Owl Carousel: hide arrows and dots that are switched off in main.js
+   (this copy of owl.carousel.min.css is missing the standard rule). */
+.owl-carousel .owl-nav.disabled,
+.owl-carousel .owl-dots.disabled {
+  display: none;
+}
